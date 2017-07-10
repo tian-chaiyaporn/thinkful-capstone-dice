@@ -7,7 +7,7 @@ const decisions = require('./middlewares/decisions-router')
 
 const app = express()
 
-app.use('/static', express.static(path.join(__dirname, '../../build')))
+app.use('/static', express.static(path.join(__dirname, '../..', '/build')))
 
 /********* HOME HANDLER ********************/
 

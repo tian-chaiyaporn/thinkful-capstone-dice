@@ -9,11 +9,11 @@ const expect = chai.expect;
 chai.use(chaiHttp);
 
 // test static files delivery
-describe('static files', function() {
-  describe('GET client side index.js in asset', function() {
-    it('should not be empty', function() {
+describe('HomePage', function() {
+  describe('GET home page', function() {
+    it('should be successful', function() {
       return chai.request(app)
-        .get(`/static/assets/index.js`)
+        .get(`/`)
         .then(function(res) {
           res.should.have.status(200);
         });
