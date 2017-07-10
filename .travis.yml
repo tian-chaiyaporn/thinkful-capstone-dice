@@ -1,0 +1,9 @@
+language: node_js
+node_js: node
+deploy:
+  provider: heroku
+  api_key:
+    secure: Y+0OlW+6BgWPUu4iVond4DY0dasTZLEDDLcjWw4CNLsVORlhTAYbIPKCHa9OLNh2/fLKn5n5B+bfs7ASv/S72OCfVUUQHxKq7LjMDyOFIH9HbDBipr1bNX7lYyH2rZz2/1Qi4FnQAF13qXywH+u4pITH2FL9Xv1iH8zrQmhrizFrgy92GQweyA6H3uo0/zXUBMa5gBVuag25mSY8kTa3Q82oNaJrzggwgqw3cLUPlYzMvX8PdutVHpQJK68ffmz0GriqrYEmn/Ht/qPppnTTowQ8JEX4yyY9pmm6YuOWh+Zht7+MFoNZ9TRp/TbobsXYt1cClGTA3hhEwT+J2xbtrF0LqbUN9vQJ3/KyTecZeGzTav11pOQWkHhBNQblSZpCNG9aSEPgPd0kmV7/1XZpcdcTRR43yXUpbl575WmfTsbGXU3HE1mhxrQKxfpLyQ9ZDzhtfqozAXsRMugNU6JIka82sWyBukQGbNMgiIJGx+9L7TF1pxjiciaG6DvTyNXMiKM/zmFHsoi8eEy8ugtAPBYlg88ljoOcKr4KXJGoZHOC6Zk2o3v5wcmkk/hIyLTj50qS4QxUXorE4/D4Do+6LpMQnwNfChNrK0zSethqChte+hUtm7amUDOjGYMxI1rGqD3BvkS5z5hHbA/ObsX7Vvv4SAi5VODuPpVIsaoByI0=
+  app: whispering-earth-54556
+  on:
+    repo: tian-chaiyaporn/thinkful-capstone-dice
