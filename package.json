@@ -3,7 +3,8 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./src/api/server.js localhost 8080",
+    "start": "node ./src/api/server.js",
+    "start-dev": "nodemon ./src/api/server.js localhost 8080",
     "build": "gulp build",
     "build:html": "gulp build:html",
     "test": "mocha"
