@@ -1,17 +1,18 @@
 const express = require('express');
 const path    = require('path');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const jsonParser = bodyParser.json();
 
 const {PORT, DATABASE_URL} = require('../config');
 const {Decision} = require('./Models/Decision');
-const decisions = require('./Routers/decisions-router');
-const decisionIdRoute = require('./Routers/decision-id-router');
+const decisionRoute = require('./Routers/decision-router');
 
 const app = express();
 mongoose.Promise = global.Promise;
 
 app.use('/static', express.static(path.join(__dirname, '../..', '/build')))
-app.use('/decisions', decisionIdRoute);
+app.use('/decisions', decisionRoute);
 
 /********* HOME HANDLER ********************/
 

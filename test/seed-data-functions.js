@@ -17,7 +17,8 @@ function generateDecisionData() {
   for (let i=1; i<=diceFaces; i++) {
     let opt = {
       face : i.toString(),
-      content: faker.lorem.sentence()};
+      content: faker.lorem.sentence()
+    };
     optionsArray.push(opt);
   }
   return {
@@ -37,4 +38,4 @@ function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-module.exports = {seedDecisionData, tearDownDb};
+module.exports = {seedDecisionData, generateDecisionData, tearDownDb};

@@ -1,32 +1,32 @@
 {
   "decision": "which face should I get 1?",
   "options": [
-    {"1": "face 1"},
-    {"2": "face 2"},
-    {"3": "face 4"}
+    {"face": 1, "content": "cont 1"},
+    {"face": 2, "content": "cont 2"},
+    {"face": 3, "content": "cont 3"}
   ]
 }
 {
   "decision": "which face should I get 2?",
   "options": [
-    {"1": "face 2.1"},
-    {"2": "face 2.2"},
-    {"3": "face 2.4"}
+    {"face": 1, "content": "cont 2.1"},
+    {"face": 2, "content": "cont 2.2"},
+    {"face": 3, "content": "cont 2.3"}
   ]
 }
 {
   "decision": "which face should I get 3?",
   "options": [
-    {"1": "face 3.1"},
-    {"2": "face 3.2"},
-    {"3": "face 3.4"}
+    {"face": 1, "content": "cont 3.1"},
+    {"face": 2, "content": "cont 3.2"},
+    {"face": 3, "content": "cont 3.3"}
   ]
 }
 {
   "decision": "which face should I get 4?",
   "options": [
-    {"1": "face 4.1"},
-    {"2": "face 4.2"},
-    {"3": "face 4.4"}
+    {"face": 1, "content": "cont 4.1"},
+    {"face": 2, "content": "cont 4.2"},
+    {"face": 3, "content": "cont 4.3"}
   ]
 }

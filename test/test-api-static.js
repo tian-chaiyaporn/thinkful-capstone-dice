@@ -9,7 +9,7 @@ const expect = chai.expect;
 chai.use(chaiHttp);
 
 // test static files delivery
-describe('HomePage', function() {
+describe('HOMEPAGE', function() {
   describe('GET home page', function() {
     it('should be successful', function() {
       return chai.request(app)
