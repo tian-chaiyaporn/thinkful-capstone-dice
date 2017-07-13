@@ -32,7 +32,6 @@ router.post('/new', jsonParser, (req, res) => {
     .then((decisions) => {
 			console.log('created new dice')
 			res.status(201).json(decisions);
-			// res.redirect('/decisions');
 		})
     .catch(err => {
       console.error(err);
@@ -63,7 +62,6 @@ router.patch('/:id', jsonParser, (req, res) => {
 			toUpdate[field] = req.body[field];
 		}
 	});
-
 	Decision
     .findByIdAndUpdate(req.params.id, {$set: toUpdate})
     .exec()

@@ -11,6 +11,21 @@ function seedDecisionData() {
   return Decision.insertMany(seedData);
 }
 
+function seedUserData() {
+  console.info('seeding users data');
+  const seedData = [];
+  for (let i=1; i<=10; i++) {
+    seedData.push(generateDecisionData());
+  }
+  return Decision.insertMany(seedData);
+}
+
+function generateUserData() {
+  return {
+    username: faker.name.firstName(),
+  }
+}
+
 function generateDecisionData() {
   const optionsArray = [];
   const diceFaces = getRandomIntInclusive(1, 10);
@@ -38,4 +53,10 @@ function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-module.exports = {seedDecisionData, generateDecisionData, tearDownDb};
+module.exports = {
+  seedDecisionData,
+  seedUserData,
+  generateDecisionData,
+  generateUserData,
+  tearDownDb
+};

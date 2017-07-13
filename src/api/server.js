@@ -7,12 +7,14 @@ const jsonParser = bodyParser.json();
 const {PORT, DATABASE_URL} = require('../config');
 const {Decision} = require('./Models/Decision');
 const decisionRoute = require('./Routers/decision-router');
+const userRoute = require('./Routers/users-router');
 
 const app = express();
 mongoose.Promise = global.Promise;
 
 app.use('/static', express.static(path.join(__dirname, '../..', '/build')))
 app.use('/decisions', decisionRoute);
+app.use('/user', userRoute);
 
 /********* HOME HANDLER ********************/
 
