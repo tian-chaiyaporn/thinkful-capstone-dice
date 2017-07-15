@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const faker = require('faker');
 const {Decision} = require('../src/api/Models/Decision');
+const {User} = require('../src/api/Models/User');
 
 function seedDecisionData() {
   console.info('seeding decisions data');
@@ -13,17 +14,31 @@ function seedDecisionData() {
 
 function seedUserData() {
   console.info('seeding users data');
-  const seedData = [];
-  for (let i=1; i<=10; i++) {
-    seedData.push(generateDecisionData());
-  }
-  return Decision.insertMany(seedData);
+  return new Promise(function(resolve, reject) {
+    for (let i=1; i<=5; i++) {
+      generateUserData()
+        .then(function(data) {
+          User.create(data);
+        })
+        .catch(function(err) {console.log(err);});
+    }
+    resolve()
+ });
 }
 
 function generateUserData() {
-  return {
-    username: faker.name.firstName(),
-  }
+  return User
+    .hashPassword(faker.name.firstName())
+    .then(function(hash) {
+      return {
+        username: faker.name.firstName(),
+        password: hash,
+        "decision_id": [
+          faker.random.uuid(),
+          faker.random.uuid()
+        ]
+      }
+    });
 }
 
 function generateDecisionData() {
@@ -44,6 +59,7 @@ function generateDecisionData() {
 
 function tearDownDb() {
     console.warn('Deleting database');
+    console.info('***********************');
     return mongoose.connection.dropDatabase();
 }
 

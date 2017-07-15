@@ -19,17 +19,24 @@ chai.use(chaiHttp);
 // test dicisions endpoint
 describe('USER ENDPOINTS', function() {
 
+  let cookieInfo;
+
   before(() => runServer(TEST_DATABASE_URL));
-  beforeEach(seedUserData);
+  // beforeEach(() => {
+  //   return seedUserData()
+  //     .then(() => {
+  //       console.log("seed data successful");
+  //     })
+  //     .catch(err => console.log(err));
+  // });
   afterEach(tearDownDb);
   after(closeServer);
 
-  describe('test sign-up / sign-in / sign-out flow', function() {
+  describe('test sign-up flow', function() {
     it('should create new user on post', function() {
       const newUser = {'username': 'test123', 'password': 'password123'};
       return chai.request(app)
         .post(`/user`)
-        // .set('content-type', 'application/json')
         .send(newUser)
         .then(function(res) {
           res.should.have.status(201);
@@ -45,122 +52,68 @@ describe('USER ENDPOINTS', function() {
             .catch(function(err) {console.log(err)});
         });
     });
+  });
 
-    it('should send username as json if username is successful', function() {
-      console.log("starting");
-      const newUser = {'username': 'test123', 'password': 'password123'}
-      return chai.request(app)
-        .post(`/user`)
-        .set(
-          'Authorization',
-          'Basic ' + new Buffer(newUser.username + ':' + newUser.password).toString('base64')
-        )
-        .send(newUser)
-        .then(function(res) {
-          console.log("new user added")
-          return chai.request(app)
-            .post('/user/login')
-            .set(
-              'Authorization',
-              'Basic ' + new Buffer(newUser.username + ':' + newUser.password).toString('base64')
-            )
+  describe('test sign-in flow', function() {
+    it('should send user._id as json if login is successful', function() {
+        const newUser = {'username': 'test123', 'password': 'password123'}
+        let responseUserId;
+        return chai.request(app)
+          .post(`/user`)
+          .send(newUser)
+          .then(function(res) {
+            return chai.request(app)
+              .post('/user/login')
+              .set(
+                'Authorization',
+                'Basic ' + new Buffer(newUser.username + ':' + newUser.password).toString('base64')
+              )
             .send(newUser)
-            // .field('username', newUser.username)
-            // .field('password', newUser.password)
         })
         .then(function(res) {
-          res.should.have.status(201);
-          res.body.should.equal(newUser.username);
+          // console.log('res:', res);
+          cookieInfo = res.headers['set-cookie'].toString();
 
+          res.should.have.status(201);
+          responseUserId = res.body;
           return User.findOne({'username': newUser.username});
         })
         .then(function(user) {
+          responseUserId.should.equal(user._id.toString());
           expect(user).to.be.a('object');
-        })
-        .then(function(validate) {
-
         })
         .catch(function(err) {console.log(err)});
     });
   });
-
-  // describe('DELETE single dicision by id', function() {
-  //   it('should delete a single dice decision', function() {
-  //     let decision;
-  //     return Decision
-  //       .findOne()
-  //       .exec()
-  //       .then(function(_decision) {
-  //         decision = _decision;
-  //         return chai.request(app).delete(`/decisions/${decision._id}`);
-  //       })
-  //       .then(function(res) {
-  //         res.should.have.status(204);
-  //         return Decision.findById(decision.id).exec();
-  //       })
-  //       .then(function(_decision) {
-  //         should.not.exist(_decision);
-  //       });
+  //
+  // describe('test /user/:user-id', function() {
+  //
+  //   before(() => {
+  //     return seedUserData()
+  //       .then(() => console.log("seed data successful"))
+  //       .catch(err => console.log(err));
   //   });
-  // });
   //
-  // describe('PATCH single dicision by id', function() {
-  //   it('should update a single dice decision by id', function() {
-  //     const optionArray = [
-  //       {"face": 1, "content": "updated cont 2.1"},
-  //       {"face": 2, "content": "updated cont 2.2"},
-  //       {"face": 3, "content": "updated cont 2.3"}
-  //     ];
-  //     const updateData = {
-  //       decision: 'futuristic fusion',
-  //       options: optionArray
-  //     };
-  //
-  //     return Decision
+  //   it('should send list of decisions as json if user is logged in', function() {
+  //     return User
   //       .findOne()
   //       .exec()
-  //       .then(function(decision) {
-  //         updateData.id = decision._id;
+  //       .then(function(user) {
+  //         console.log(user);
+  //         console.log(`url = /user/${user._id}`);
+  //
+  //         console.log('session:', cookieInfo);
   //         return chai.request(app)
-  //           .patch(`/decisions/${decision._id}`)
-  //           .set('content-type', 'application/json')
-  //           .send(updateData)
+  //           .get(`/user/${user._id}`)
+  //           .set('Cookie', cookieInfo)
+  //           .send();
   //       })
-  //       .then(function(res) {
-  //         res.should.have.status(204);
-  //         return Decision.findById(updateData.id).exec();
+  //       .then(function(decisions) {
+  //         res.should.have.status(200);
+  //         res.should.be.an.array;
   //       })
-  //       .then(function(res) {
-  //         res.decision.should.equal(updateData.decision);
-  //         res.options.forEach(function(opt) {
-  //           const order = opt.face - 1;
-  //           opt.face.should.equal(updateData.options[order].face.toString());
-  //           opt.content.should.equal(updateData.options[order].content);
-  //         })
-  //       });
+  //       .catch(function(err) {console.log(`error = ${err}`)});
   //   });
-  // });
-  //
-  // describe('POST new decision', function() {
-  //   it('should return true if new decision is created.', function() {
-  //     const newItem = generateDecisionData();
-  //     return chai.request(app)
-  //       .post('/decisions/new')
-  //       .send(newItem)
-  //       .then(function(res) {
-  //         // console.log(res.body);
-  //         res.should.be.json;
-  //         res.body.should.be.a('object');
-  //         res.body.should.include.keys('_id', 'decision', 'options');
-  //         res.body._id.should.not.be.null;
-  //         res.body.decision.should.equal(newItem.decision);
-  //         res.body.options.forEach(function(opt) {
-  //           const order = opt.face - 1;
-  //           opt.face.should.equal(newItem.options[order].face.toString());
-  //           opt.content.should.equal(newItem.options[order].content);
-  //         })
-  //       });
-  //     });
   // });
 
 });
