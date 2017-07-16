@@ -1,7 +1,7 @@
-import {Home} from './home';
+import * as Home from './home.js';
 
 // initialize page.js for routing in the front-end
-page('/', Home.viewHome);
+page('/', Home);
 // page('/about', viewAbout);
 // page('/sign-up', signUp);
 // page('/sign-in', signIn);

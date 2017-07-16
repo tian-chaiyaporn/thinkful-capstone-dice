@@ -7,8 +7,8 @@
     "seed-data": "mongoimport --db diceApp --collection decisions --drop --file ~/Thinkful/Server-side/dice-capstone/src/api/seed-data-dice.json",
     "seed-data-to-cloud": "mongoimport --db diceApp --collection decisions --drop --file ~/Thinkful/Server-side/dice-capstone/src/api/seed-data-dice.json --host ds153752.mlab.com --port 53752  -u tian_chaiyaporn -p chaichinchino1718",
     "start-dev": "nodemon ./src/api/server.js localhost 8080",
-    "build": "gulp",
-    "build:html": "gulp build:html",
+    "build:gulp": "gulp",
+    "build:browserify": "browserify mid-build/js -t babelify --outfile build/assets/app.js",
     "test": "mocha"
   },
   "dependencies": {
@@ -23,14 +23,16 @@
     "passport-http": "^0.3.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
+    "babelify": "^7.3.0",
     "chai": "^4.0.2",
     "chai-http": "^3.0.0",
     "faker": "^4.1.0",
     "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
     "gulp-cli": "^1.3.0",
     "gulp-pug": "^3.3.0",
-    "gulp-babel": "^6.1.2",
     "lodash": "^4.17.4",
     "mocha": "^3.4.2",
     "nodemon": "^1.11.0"

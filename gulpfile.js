@@ -9,14 +9,21 @@ gulp.task('build:html', function () {
     .pipe(gulp.dest(path.join(__dirname, 'build')))
 })
 
-gulp.task('build', ['build:html'], function () {
-  // after building pug files, just copy all css and js ones to build
+gulp.task('build:css', ['build:html'], function () {
+  // after building pug files, just copy css into build
   gulp.src([
     path.join(__dirname, 'src/spa/css/*'),
-    path.join(__dirname, 'src/spa/js/*/**')
   ])
-    .pipe(babel())
-    .pipe(gulp.dest(path.join(__dirname, 'build/assets')))
+    .pipe(gulp.dest(path.join(__dirname, 'build/assets/css')))
 })
 
-gulp.task('default', ['build'])
+gulp.task('build:js', ['build:css', 'build:html'], function () {
+  // after building css, build js files using babel
+  gulp.src([
+    path.join(__dirname, 'src/spa/js/**/*')
+  ])
+    .pipe(babel())
+    .pipe(gulp.dest(path.join(__dirname, 'mid-build/js')))
+})
+
+gulp.task('default', ['build:html', 'build:css', 'build:js'])
