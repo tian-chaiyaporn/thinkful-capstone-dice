@@ -1,4 +1,4 @@
-import * as Home from './home.js';
+import * as Home from './HomeViewManager.js';
 
 // initialize page.js for routing in the front-end
 page('/', Home);

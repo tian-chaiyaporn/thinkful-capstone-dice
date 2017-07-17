@@ -23,7 +23,13 @@ router.get('/', (req, res) => {
     });
 });
 
-// (POST) return all dice
+// router.options('/', (req, res) => {
+// 	res
+// 		.set('Access-Control-Allow-Origin', '*')
+// 		.end()
+// })
+
+// (POST) create new dice
 router.post('/new', jsonParser, (req, res) => {
 	Decision
 		.create({

@@ -13,6 +13,7 @@ const {seedUserData,
 
 const should = chai.should();
 const expect = chai.expect;
+const agent  = chai.request.agent(app);
 
 chai.use(chaiHttp);
 
@@ -55,65 +56,67 @@ describe('USER ENDPOINTS', function() {
   });
 
   describe('test sign-in flow', function() {
-    it('should send user._id as json if login is successful', function() {
-        const newUser = {'username': 'test123', 'password': 'password123'}
-        let responseUserId;
-        return chai.request(app)
-          .post(`/user`)
-          .send(newUser)
-          .then(function(res) {
-            return chai.request(app)
-              .post('/user/login')
-              .set(
-                'Authorization',
-                'Basic ' + new Buffer(newUser.username + ':' + newUser.password).toString('base64')
-              )
-            .send(newUser)
-        })
-        .then(function(res) {
-          // console.log('res:', res);
-          cookieInfo = res.headers['set-cookie'].toString();
 
+    it('should send user._id as json if login is successful', function() {
+      const agent = chai.request.agent(app);
+      const newUser = {'username': 'test123', 'password': 'password123'}
+      let responseUserId;
+      let user;
+
+      return chai.request(app)
+        .post(`/user`)
+        .send(newUser)
+        .then(() => User.findOne({username: newUser.username}))
+        .then(foundUser => user = foundUser)
+        .then(res => agent
+              .post('/user/login')
+              .auth(newUser.username, newUser.password)
+              .send(newUser)
+        )
+        .then(res => {
+          res.should.have.cookie('connect.sid');
           res.should.have.status(201);
-          responseUserId = res.body;
-          return User.findOne({'username': newUser.username});
-        })
-        .then(function(user) {
-          responseUserId.should.equal(user._id.toString());
-          expect(user).to.be.a('object');
+          res.body.should.equal(user._id.toString());
         })
         .catch(function(err) {console.log(err)});
     });
   });
-  //
-  // describe('test /user/:user-id', function() {
-  //
-  //   before(() => {
-  //     return seedUserData()
-  //       .then(() => console.log("seed data successful"))
-  //       .catch(err => console.log(err));
-  //   });
-  //
-  //   it('should send list of decisions as json if user is logged in', function() {
-  //     return User
-  //       .findOne()
-  //       .exec()
-  //       .then(function(user) {
-  //         console.log(user);
-  //         console.log(`url = /user/${user._id}`);
-  //
-  //         console.log('session:', cookieInfo);
-  //         return chai.request(app)
-  //           .get(`/user/${user._id}`)
-  //           .set('Cookie', cookieInfo)
-  //           .send();
-  //       })
-  //       .then(function(decisions) {
-  //         res.should.have.status(200);
-  //         res.should.be.an.array;
-  //       })
-  //       .catch(function(err) {console.log(`error = ${err}`)});
-  //   });
-  // });
+
+  describe('test /user/:user-id', function() {
+
+    before(() => {
+      return seedUserData()
+        .then(() => console.log("seed data successful"))
+        .catch(err => console.log(err))
+    });
+
+    it('should send list of decisions as json if user is logged in', function() {
+      let cookieInfo;
+      // - [x] Get an user from database (usin the User model)
+      // - [x] Sign in with this user (store cookie info)
+      // - [ ] Get his/her list of decisions
+
+      User.findOne()
+        .exec()
+        .then(function(user) {
+          return agent
+            .post('/user/login')
+            .auth(user.username, user.password)
+            .send()
+        })
+        .then(res => {
+          expect(res).to.have.cookie('connect.sid')
+
+          return agent
+            .get(`/user/${user._id}`)
+            send()
+        })
+        .then(res => {
+          res.should.have.status(200);
+          console.log('typeof json property', typeof expect(res).to.be.json);
+        })
+        .catch(function(err) {console.log(`error = ${err}`)});
+    });
+  });
 
 });
