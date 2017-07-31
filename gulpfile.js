@@ -10,8 +10,7 @@ const buffer = require('vinyl-buffer');
 const util = require('gulp-util');
 
 gulp.task('build:html', function () {
-  gulp.src(path.join(__dirname, 'src/spa/views/*.pug'))
-    .pipe(pug({ pretty: true }))
+  gulp.src(path.join(__dirname, 'src/spa/views/*.html'))
     .pipe(gulp.dest(path.join(__dirname, 'build')))
 })
 
@@ -24,6 +23,9 @@ gulp.task('build:css', ['build:html'], function () {
 })
 
 gulp.task('build:js', ['build:css', 'build:html'], function() {
+
+  gulp.src(path.join(__dirname, 'src/spa/js/routers.js'))
+    .pipe(gulp.dest(path.join(__dirname, 'build/assets/')))
 
   const b = browserify({
     entries: './src/spa/js/index.js',
