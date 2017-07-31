@@ -10,7 +10,9 @@ const viewHome = function() {
   let diceArray;
   Promise.all([getDice(), getComponent('decision-card')])
     .then((payload) => {
-      payload[0].forEach(dice => createDecisionCard(dice, payload[1]))
+      payload[0].forEach(dice => {
+        createDecisionCard(dice, payload[1]);
+      })
     })
     .catch(err => console.log(err));
 };
@@ -29,4 +31,5 @@ function createDecisionCard(dice, component) {
   });
 };
 
-export default {viewHome}
+Home = viewHome;
+export default {Home}

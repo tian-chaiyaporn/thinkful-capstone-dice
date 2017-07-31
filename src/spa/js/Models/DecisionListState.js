@@ -6,17 +6,29 @@ const DECISION_LIST = [];
 // add dice to decision list
 const addDiceToState = function(decision) {
   const dice = new Dice(decision);
+  console.log(dice);
   DECISION_LIST.push(dice);
   return;
 }
 
 // return a list of dice from in-memory
-const getDice = function(decision) {
+const getDice = function(decision_id) {
   return new Promise((res) => {
     if (DECISION_LIST.length !== 0) {
       res(DECISION_LIST);
     } else {
       getDecisionListApi().then(() => res(DECISION_LIST));
+    }
+  })
+}
+
+// return a single dice from in-memory
+const getDiceById = function(decision_id) {
+  return new Promise((res) => {
+    if (DECISION_LIST.length !== 0) {
+      res(DECISION_LIST.find(dice => dice._id === decision_id));
+    } else {
+      getDecisionListApi().then(() => res(DECISION_LIST.find(dice => dice_id === decision_id)));
     }
   })
 }
@@ -38,4 +50,4 @@ const getDecisionListApi = function() {
   })
 };
 
-export {getDice};
+export {getDice, getDiceById};

@@ -1,14 +1,12 @@
-// import * as appRouters from './routers';
-
 import * as RandomNGenerator from './Utils/RandomNGenerator'
 import * as Constant from './Utils/constants'
 import * as Dice from './Models/DiceModel'
 import * as DecisionList from './Models/DecisionListState'
-import * as viewHome from './HomeViewManager';
-import * as viewDice from './DicePageViewManager';
+import * as Home from './HomeViewManager';
+import * as DiceView from './DicePageViewManager';
 
 // initialize page.js for routing in the front-end
-page('/', viewHome);
+// page('/', viewHome);
 // page('/dice', viewDice);
 // page('/about', viewAbout);
 // page('/sign-up', signUp);

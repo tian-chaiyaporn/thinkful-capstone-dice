@@ -2,9 +2,9 @@
 // initialize page.js for routing in the front-end
 // page.base('/');
 console.log('page loaded');
-// 
-// page('/', Home);
-// page('/dice', viewDice);
+//
+page('/', Home);
+page('/diceview/:id', DiceView);
 // page();
 // page('/about', viewAbout);
 // page('/sign-up', signUp);
@@ -17,5 +17,5 @@ console.log('page loaded');
 // page('/:username/:decisionId/edit', editDice);
 // page('/:username/:decisionId/delete', deleteDice);
 //
-// page ();
+page();
 // return;
