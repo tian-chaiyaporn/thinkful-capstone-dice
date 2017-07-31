@@ -1,10 +1,12 @@
+require('dotenv').config()
+
 const express = require('express');
 const path    = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 
-const {PORT, DATABASE_URL} = require('../config');
+// const {PORT, DATABASE_URL} = require('../config');
 const {Decision} = require('./Models/Decision');
 const decisionRoute = require('./Routers/decision-router');
 const userRoute = require('./Routers/users-router');
@@ -20,11 +22,6 @@ app.use('/user', userRoute);
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../../build/index.html'))
-})
-
-app.get('/dice', (req, res) => {
-  res.status(200).json({message: 'handling backend'});
-  // res.sendFile(path.join(__dirname, '../../build/index.html'))
 })
 
 /********* APP SERVER CONTROL **********************/
@@ -48,7 +45,7 @@ app.get('/dice', (req, res) => {
 
 // let server;
 
-function runServer(databaseUrl=DATABASE_URL, port=PORT) {
+function runServer(databaseUrl = process.env.DATABASE_URL, port = process.env.PORT) {
   return new Promise((resolve, reject) => {
     mongoose.connect(databaseUrl, {
       useMongoClient: true,

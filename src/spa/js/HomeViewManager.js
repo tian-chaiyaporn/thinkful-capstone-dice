@@ -31,5 +31,5 @@ function createDecisionCard(dice, component) {
   });
 };
 
-Home = viewHome;
-export default {Home}
+// Home = viewHome;
+export {viewHome}
