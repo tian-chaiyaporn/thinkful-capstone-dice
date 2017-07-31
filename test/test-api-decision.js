@@ -16,7 +16,7 @@ chai.use(chaiHttp);
 // test dicisions endpoint
 describe('DECISIONS ENDPOINTS', function() {
 
-  before(() => runServer(process.env.TEST_DATABASE_URL));
+  before(() => runServer(TEST_DATABASE_URL));
   beforeEach(seedDecisionData);
   afterEach(tearDownDb);
   after(closeServer);

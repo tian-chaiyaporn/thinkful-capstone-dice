@@ -22,7 +22,7 @@ describe('USER ENDPOINTS', function() {
 
   let cookieInfo;
 
-  before(() => runServer(process.env.TEST_DATABASE_URL));
+  before(() => runServer(TEST_DATABASE_URL));
   // beforeEach(() => {
   //   return seedUserData()
   //     .then(() => {
