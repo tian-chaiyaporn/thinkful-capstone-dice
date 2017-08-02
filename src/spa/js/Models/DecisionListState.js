@@ -37,7 +37,7 @@ const getDiceById = function(decision_id) {
 const getDecisionListApi = function() {
   return new Promise(function(res, rej) {
     const target = '/decisions';
-    const urlString = `http://${BASE_URL}:${PORT}${target}`;
+    const urlString = `${target}`;
     $.ajax({url: urlString})
       .done(function(allDiceInfo) {
         allDiceInfo.forEach(decision => addDiceToState(decision))

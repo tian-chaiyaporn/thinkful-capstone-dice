@@ -23,7 +23,7 @@ const getComponent = function(key) {
 const getComponentAPI = function(name) {
   return new Promise(function(res, rej) {
     const target = `/static/${name}.html`;
-    const urlString = `http://${BASE_URL}:${PORT}${target}`;
+    const urlString = `${target}`;
     $.ajax({url: urlString})
       .done(function(component) {
         addComponentToState(name, component);
