@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 const {app, runServer, closeServer} = require('../src/api/server');
 const {Decision} = require('../src/api/Models/Decision');
 const {User} = require('../src/api/Models/User');
-const {DATABASE_URL} = require('../src/config');
 
 const {seedUserData,
       generateUserData,
@@ -22,7 +21,7 @@ describe('USER ENDPOINTS', function() {
 
   let cookieInfo;
 
-  before(() => runServer(DATABASE_URL));
+  before(() => runServer(process.env.DATABASE_URL));
   // beforeEach(() => {
   //   return seedUserData()
   //     .then(() => {

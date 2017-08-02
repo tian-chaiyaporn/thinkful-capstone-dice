@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 
 const {app, runServer, closeServer} = require('../src/api/server');
 const {Decision} = require('../src/api/Models/Decision');
-const {DATABASE_URL} = require('../src/config');
 
 const {seedDecisionData, generateDecisionData, tearDownDb} = require('./seed-data-functions')
 
@@ -16,7 +15,7 @@ chai.use(chaiHttp);
 // test dicisions endpoint
 describe('DECISIONS ENDPOINTS', function() {
 
-  before(() => runServer(DATABASE_URL));
+  before(() => runServer(process.env.DATABASE_URL));
   beforeEach(seedDecisionData);
   afterEach(tearDownDb);
   after(closeServer);
