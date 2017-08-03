@@ -43,7 +43,7 @@ app.get('/', (req, res) => {
 //   mongoose.disconnect();
 // });
 
-// let server;
+let server;
 
 function runServer(databaseUrl = process.env.DATABASE_URL, port = process.env.PORT) {
   return new Promise((resolve, reject) => {
