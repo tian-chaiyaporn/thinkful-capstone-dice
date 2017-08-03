@@ -10,9 +10,13 @@ const viewHome = function() {
   let diceArray;
   Promise.all([getDice(), getComponent('decision-card')])
     .then((payload) => {
-      payload[0].forEach(dice => {
-        createDecisionCard(dice, payload[1]);
-      })
+      if (payload[0].length === 0) {
+        console.log('there is no data');
+      } else {
+        payload[0].forEach(dice => {
+          createDecisionCard(dice, payload[1]);
+        })
+      }
     })
     .catch(err => console.log(err));
 };
@@ -32,4 +36,4 @@ function createDecisionCard(dice, component) {
 };
 
 // Home = viewHome;
-export {viewHome}
+export {viewHome, createDecisionCard}
