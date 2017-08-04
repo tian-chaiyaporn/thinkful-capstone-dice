@@ -4,7 +4,7 @@ import * as Dice from './Models/DiceModel'
 import * as DecisionList from './Models/DecisionListState'
 import {viewHome} from './HomeViewManager';
 import {DiceView} from './DicePageViewManager';
-// import page from 'page';
+import page from 'page';
 
 // initialize page.js for routing in the front-end
 console.log('Home inside index.js:', viewHome);

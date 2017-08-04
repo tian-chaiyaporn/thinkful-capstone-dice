@@ -13,6 +13,7 @@ const addDiceToState = function(decision) {
 
 // return a list of dice from in-memory
 const getDice = function(decision_id) {
+  console.log('getDice was called');
   return new Promise((res) => {
     if (DECISION_LIST.length !== 0) {
       res(DECISION_LIST);

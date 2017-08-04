@@ -9,9 +9,11 @@
     "start-dev": "nodemon ./src/api/server.js localhost 8080",
     "build": "gulp",
     "build:browserify": "browserify mid-build/js -t babelify --outfile build/assets/app.js",
-    "test": "mocha --compilers js:babel-core/register --bail"
+    "test": "mocha --compilers js:babel-core/register --bail",
+    "test-i": "mocha --compilers js:babel-core/register --bail --grep"
   },
   "dependencies": {
+    "babel-polyfill": "^6.23.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
     "dotenv": "^4.0.0",
@@ -42,6 +44,7 @@
     "lodash": "^4.17.4",
     "mocha": "^3.4.2",
     "nodemon": "^1.11.0",
+    "sinon": "^3.0.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
