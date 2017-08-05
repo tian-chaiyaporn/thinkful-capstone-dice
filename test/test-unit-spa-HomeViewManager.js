@@ -1,21 +1,23 @@
 import 'babel-polyfill';
+import Home from '../src/spa/js/HomeViewManager';
+import DecisionCard from '../src/spa/js/DecisionCardView';
+import DecisionListState from '../src/spa/js/Models/DecisionListState';
+import ComponentState from '../src/spa/js/Models/ComponentState';
+
 const chai = require('chai');
 const sinon = require('sinon');
-const Home = require('../src/spa/js/HomeViewManager');
-const DecisionCard = require('../src/spa/js/DecisionCardView');
-const DecisionListState = require('../src/spa/js/Models/DecisionListState');
-const ComponentState = require('../src/spa/js/Models/ComponentState');
+
 const should = chai.should();
 const expect = chai.expect;
 
 describe('viewHome', function() {
 
-  var createCard;
-  var loadDice;
-  var loadComponent;
+  let createCard;
+  let loadDice;
+  let loadComponent;
 
   beforeEach(function() {
-    createCard = sinon.stub(DecisionCard, 'createDecisionCard');
+    createCard = sinon.stub(DecisionCard, 'createDecisionCard').returns(Promise.resolve('createDecisionCard'));
     loadDice = sinon.stub(DecisionListState, 'getDice');
     loadComponent = sinon.stub(ComponentState, 'getComponent');
   })
@@ -26,23 +28,25 @@ describe('viewHome', function() {
     createCard.restore();
   });
 
-  it('should call getDice() and getComponent()', function(done) {
+  it('should call getDice(), getComponent(), createDecisionCard()', function() {
     loadDice.resolves([1, 2, 3]);
     loadComponent.resolves('template');
-    Home.viewHome.call()
 
-    sinon.assert.calledOnce(loadDice);
-    sinon.assert.calledOnce(loadComponent);
-    sinon.assert.called(createCard);
-    done();
+    return Home.viewHome.call()
+      .then(() => {
+        sinon.assert.calledOnce(loadDice);
+        sinon.assert.calledOnce(loadComponent);
+        sinon.assert.calledThrice(createCard);
+      });
   });
 
-  it('should call createDecisionCard if there is data', function() {
-
-  });
-
-  it('should log no data if there is no data', function() {
-
+  it('should throw error if there is no data', function() {
+    // loadDice.resolves([]);
+    // loadComponent.resolves('template');
+    // expect(function(){
+    //   return Home.viewHome.call();
+    // }).to.throw('There is no data');
+    // done();
   });
 
   it('should catch error if there data or component cannot be retrieved', function() {

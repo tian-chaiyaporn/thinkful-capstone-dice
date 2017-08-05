@@ -5,7 +5,7 @@ import replaceAll from './Utils/StringReplacer'
 
 // create the home page
 // control fetching lists of decision dice and input as html
-const DiceView = function(ctx) {
+const diceView = function(ctx) {
   const id = ctx.params.id;
   console.log('dice view');
   console.log(id);
@@ -17,10 +17,10 @@ const DiceView = function(ctx) {
   //   })
   //   .catch(err => console.log(err));
 };
+// 
+// const createDecisionPage = function() {
+//
+// }
 
-const createDecisionPage = function() {
-
-}
-
-export default DiceView
-export {DiceView}
+// export default DiceView
+export default {diceView}

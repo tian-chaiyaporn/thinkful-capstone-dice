@@ -1,30 +1,32 @@
-import {getDice} from './Models/DecisionListState'
-import {getComponent} from './Models/ComponentState'
-import {createDecisionCard} from './DecisionCardView'
+import DecisionListState from './Models/DecisionListState'
+import ComponentState from './Models/ComponentState'
+// import {createDecisionCard} from './DecisionCardView'
+import DecisionCardView from './DecisionCardView'
 
 // create the home page
 // control fetching lists of decision dice and input as html
 const viewHome = function() {
-  console.log('viewHome starting');
-  let diceArray;
-  createDecisionCard(1, 'test');
-  Promise.all([getDice(), getComponent('decision-card')])
-    .then((payload) => {
-      console.log('Promise has been called');
-      console.log(payload);
+  console.log('viewHome starting 123');
 
+  return Promise.all([
+    DecisionListState.getDice(),
+    ComponentState.getComponent('decision-card')
+  ])
+    .then((payload) => {
+      console.log(payload);
       if (payload[0].length === 0) {
         console.log('there is no data');
+        throw new Error('There is no data');
       }
       else {
         payload[0].forEach(dice => {
-          createDecisionCard(dice, payload[1]);
+          console.log('logging each loop');
+          DecisionCardView.createDecisionCard(dice, payload[1]);
         })
-        return 'test';
       }
-    })
-    .catch(err => console.log(err));
+      return Promise.resolve();
+    });
 };
 
 // Home = viewHome;
-export {viewHome}
+export default {viewHome}

@@ -51,4 +51,4 @@ const getDecisionListApi = function() {
   })
 };
 
-export {getDice, getDiceById};
+export default {getDice, getDiceById};

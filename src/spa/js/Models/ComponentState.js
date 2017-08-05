@@ -10,6 +10,7 @@ const addComponentToState = function(key, component) {
 
 // return a COMPONENT by key from in-memory
 const getComponent = function(key) {
+  console.log('getComponent was called');
   return new Promise((res) => {
     if (COMPONENTS_OBJ[key]) {
       res(COMPONENTS_OBJ[key]);
@@ -36,4 +37,4 @@ const getComponentAPI = function(name) {
   })
 };
 
-export {getComponent};
+export default {getComponent};

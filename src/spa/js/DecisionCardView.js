@@ -15,4 +15,4 @@ const createDecisionCard = function(dice, component) {
   });
 };
 
-export {createDecisionCard}
+export default {createDecisionCard}
