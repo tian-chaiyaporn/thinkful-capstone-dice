@@ -41,12 +41,10 @@ describe('viewHome', function() {
   });
 
   it('should throw error if there is no data', function() {
-    // loadDice.resolves([]);
-    // loadComponent.resolves('template');
-    // expect(function(){
-    //   return Home.viewHome.call();
-    // }).to.throw('There is no data');
-    // done();
+    loadDice.resolves([]);
+    loadComponent.resolves('template');
+    return Home.viewHome.call()
+      .catch(err => {err.message.should.equal('There is no data')});
   });
 
   it('should catch error if there data or component cannot be retrieved', function() {
