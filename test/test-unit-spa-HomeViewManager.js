@@ -28,7 +28,7 @@ describe('viewHome', function() {
     createCard.restore();
   });
 
-  it('should call getDice(), getComponent(), createDecisionCard()', function() {
+  it('should create createDecisionCard() if data exists', function() {
     loadDice.resolves([1, 2, 3]);
     loadComponent.resolves('template');
 
@@ -46,9 +46,4 @@ describe('viewHome', function() {
     return Home.viewHome.call()
       .catch(err => {err.message.should.equal('There is no data')});
   });
-
-  it('should catch error if there data or component cannot be retrieved', function() {
-
-  });
-
 });

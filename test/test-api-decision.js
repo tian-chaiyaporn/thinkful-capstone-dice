@@ -12,7 +12,7 @@ const expect = chai.expect;
 
 chai.use(chaiHttp);
 
-// test dicisions endpoint
+// test decisions endpoint
 describe('DECISIONS ENDPOINTS', function() {
 
   before(() => runServer(process.env.DATABASE_URL));
@@ -20,7 +20,7 @@ describe('DECISIONS ENDPOINTS', function() {
   afterEach(tearDownDb);
   after(closeServer);
 
-  describe('GET single dicision by id', function() {
+  describe('GET single decision by id', function() {
     it('should get a single dice decision', function() {
       return Decision
         .findOne()
@@ -39,7 +39,7 @@ describe('DECISIONS ENDPOINTS', function() {
     });
   });
 
-  describe('DELETE single dicision by id', function() {
+  describe('DELETE single decision by id', function() {
     it('should delete a single dice decision', function() {
       let decision;
       return Decision
@@ -59,7 +59,7 @@ describe('DECISIONS ENDPOINTS', function() {
     });
   });
 
-  describe('PATCH single dicision by id', function() {
+  describe('PATCH single decision by id', function() {
     it('should update a single dice decision by id', function() {
       const optionArray = [
         {"face": 1, "content": "updated cont 2.1"},

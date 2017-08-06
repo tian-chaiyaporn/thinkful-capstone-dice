@@ -1,7 +1,7 @@
 import replaceAll from './Utils/StringReplacer'
 
 // get template for each decision and display it
-const createDecisionCard = function(dice, component) {
+const createDecisionCard = (dice, component) => {
   console.log('createDecisionCard was called');
   const map = {
     '@title': dice.decision,

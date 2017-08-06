@@ -7,7 +7,6 @@ export default class Dice {
       if (!decision.hasOwnProperty(key)) {
         throw new Error(`Parameter ${key} is  required.`);
       }
-
       this[key] = decision[key];
     })
   }

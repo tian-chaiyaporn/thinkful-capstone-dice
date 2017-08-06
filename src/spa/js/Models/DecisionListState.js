@@ -4,15 +4,18 @@ import {BASE_URL, PORT} from '../Utils/constants'
 const DECISION_LIST = [];
 
 // add dice to decision list
-const addDiceToState = function(decision) {
-  const dice = new Dice(decision);
-  console.log(dice);
-  DECISION_LIST.push(dice);
-  return;
-}
+const addDice = (dice) => {DECISION_LIST.push(new Dice(dice))};
+
+// remove dice from decision list by ID
+const removeDiceById = (dice_id) => {
+  DECISION_LIST.splice(DECISION_LIST.indexOf(dice => dice === dice_id), 1);
+};
+
+// remove all dice to decision list
+const removeAllDice = () => {DECISION_LIST.length = 0};
 
 // return a list of dice from in-memory
-const getDice = function(decision_id) {
+const getDice = () => {
   console.log('getDice was called');
   return new Promise((res) => {
     if (DECISION_LIST.length !== 0) {
@@ -24,7 +27,8 @@ const getDice = function(decision_id) {
 }
 
 // return a single dice from in-memory
-const getDiceById = function(decision_id) {
+const getDiceById = (decision_id) => {
+  console.log('getDiceById was called');
   return new Promise((res) => {
     if (DECISION_LIST.length !== 0) {
       res(DECISION_LIST.find(dice => dice._id === decision_id));
@@ -36,19 +40,26 @@ const getDiceById = function(decision_id) {
 
 // get lists of decision dice from api
 const getDecisionListApi = function() {
-  return new Promise(function(res, rej) {
+  console.log('getDecisionListApi was called');
+  return new Promise((res, rej) => {
     const target = '/decisions';
     const urlString = `${target}`;
     $.ajax({url: urlString})
-      .done(function(allDiceInfo) {
-        allDiceInfo.forEach(decision => addDiceToState(decision))
+      .done(allDiceInfo => {
+        allDiceInfo.forEach(decision => addDice(decision))
         res();
         return;
       })
-      .fail(function(err) {
-        rej(`cannot get dice - Error: ${err}`);
-    });
+      .fail(err => {rej(`cannot get dice - Error: ${err}`)});
   })
 };
 
-export default {getDice, getDiceById};
+exports.getDecisionListApi = getDecisionListApi();
+
+function DLA () {
+  return exports.getDecisionListApi();
+}
+
+exports.DLA = DLA;
+
+export default {addDice, removeAllDice, getDice, getDiceById, getDecisionListApi};

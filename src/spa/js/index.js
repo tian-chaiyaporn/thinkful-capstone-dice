@@ -8,14 +8,8 @@ import DiceVM from './DicePageViewManager';
 import page from 'page';
 
 // initialize page.js for routing in the front-end
-console.log('Home inside index.js:', HomeVM.viewHome);
-console.log('DiceView inside index.js:', DiceVM.diceView);
-
-// page.base('/');
 page('/', HomeVM.viewHome);
-// page('/', () => console.log('Hooome!'));
 page('/dice', DiceVM.diceView);
-// page('/dice', () => console.log('Im at /dice! \o/'));
 page('*', () => console.log('fallback cb'));
 // page('/about', viewAbout);
 // page('/sign-up', signUp);

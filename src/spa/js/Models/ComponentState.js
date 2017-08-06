@@ -3,13 +3,12 @@ import {BASE_URL, PORT} from '../Utils/constants'
 const COMPONENTS_OBJ = {};
 
 // add component to COMPONENTS_OBJ for caching
-const addComponentToState = function(key, component) {
+const addComponentToState = (key, component) => {
   COMPONENTS_OBJ[key] = component;
-  return;
 }
 
 // return a COMPONENT by key from in-memory
-const getComponent = function(key) {
+const getComponent = (key) => {
   console.log('getComponent was called');
   return new Promise((res) => {
     if (COMPONENTS_OBJ[key]) {
@@ -21,19 +20,17 @@ const getComponent = function(key) {
 }
 
 // get component templates from api
-const getComponentAPI = function(name) {
-  return new Promise(function(res, rej) {
+const getComponentAPI = (name) => {
+  return new Promise((res, rej) => {
     const target = `/static/${name}.html`;
     const urlString = `${target}`;
     $.ajax({url: urlString})
-      .done(function(component) {
+      .done((component) => {
         addComponentToState(name, component);
         res(component);
         return;
       })
-      .fail(function(err) {
-        rej(`cannot get component - Error: ${err}`);
-    });
+      .fail((err) => {rej(`cannot get component - Error: ${err}`)});
   })
 };
 
