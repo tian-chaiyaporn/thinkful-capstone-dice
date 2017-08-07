@@ -1,8 +1,10 @@
 import 'babel-polyfill';
 import Home from '../src/spa/js/HomeViewManager';
-import DecisionCard from '../src/spa/js/DecisionCardView';
+import DecisionCardView from '../src/spa/js/DecisionCardView';
 import DecisionListState from '../src/spa/js/Models/DecisionListState';
 import ComponentState from '../src/spa/js/Models/ComponentState';
+import Util from '../src/spa/js/Utils/ClearHTML';
+import $ from "jquery";
 
 const chai = require('chai');
 const sinon = require('sinon');
@@ -15,22 +17,26 @@ describe('viewHome', function() {
   let createCard;
   let loadDice;
   let loadComponent;
+  let clearHTML;
 
   beforeEach(function() {
-    createCard = sinon.stub(DecisionCard, 'createDecisionCard').returns(Promise.resolve('createDecisionCard'));
+    createCard = sinon.stub(DecisionCardView, 'createDecisionCard');
     loadDice = sinon.stub(DecisionListState, 'getDice');
     loadComponent = sinon.stub(ComponentState, 'getComponent');
+    clearHTML = sinon.stub(Util, 'clearHtml');
   })
 
   afterEach(function() {
     loadDice.restore();
     loadComponent.restore();
     createCard.restore();
+    clearHTML.restore();
   });
 
   it('should create createDecisionCard() if data exists', function() {
     loadDice.resolves([1, 2, 3]);
     loadComponent.resolves('template');
+    createCard.resolves();
 
     return Home.viewHome.call()
       .then(() => {

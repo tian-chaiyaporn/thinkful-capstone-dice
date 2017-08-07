@@ -5,6 +5,7 @@ const createDecisionCard = (dice, component) => {
   console.log('createDecisionCard was called');
   const map = {
     '@title': dice.decision,
+    '@id': dice._id,
     '@description': 'to be determined'
   }
   const card = replaceAll(component, map);

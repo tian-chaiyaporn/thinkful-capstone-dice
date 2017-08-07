@@ -27,13 +27,13 @@ const getDice = () => {
 }
 
 // return a single dice from in-memory
-const getDiceById = (decision_id) => {
+const getDiceById = (decisionId) => {
   console.log('getDiceById was called');
   return new Promise((res) => {
     if (DECISION_LIST.length !== 0) {
-      res(DECISION_LIST.find(dice => dice._id === decision_id));
+      res(DECISION_LIST.find(dice => dice._id === decisionId));
     } else {
-      getDecisionListApi().then(() => res(DECISION_LIST.find(dice => dice_id === decision_id)));
+      getDecisionListApi().then(() => res(DECISION_LIST.find(dice => dice_id === decisionId)));
     }
   })
 }
@@ -53,13 +53,5 @@ const getDecisionListApi = function() {
       .fail(err => {rej(`cannot get dice - Error: ${err}`)});
   })
 };
-
-exports.getDecisionListApi = getDecisionListApi();
-
-function DLA () {
-  return exports.getDecisionListApi();
-}
-
-exports.DLA = DLA;
 
 export default {addDice, removeAllDice, getDice, getDiceById, getDecisionListApi};
