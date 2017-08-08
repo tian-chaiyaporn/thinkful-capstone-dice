@@ -12,10 +12,9 @@ const createDiceEditPage = function(dice, pageLayout, diceHeaderComponent, optio
 
   dice.options.forEach(option => {
     $('.js-edit-options-list').append(replaceAll(optionComponent, {'@option': option.content}));
-    $('.js-delete-option').click((e) => {
+    $('.js-delete-option').on("click", (e) => {
       e.stopImmediatePropagation();
-      console.log('delete list');
-      // dice.deleteOption().then(delete element from DOM)
+      $(e.currentTarget).parent().remove();
     });
   })
 
@@ -34,7 +33,7 @@ const createDiceEditPage = function(dice, pageLayout, diceHeaderComponent, optio
     console.log(dice.options);
   })
 
-  $('.js-save-dice')
+  $('.js-save-dice').click(() => dice.save())
   $('.js-delete-dice')
 }
 
