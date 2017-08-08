@@ -1,4 +1,5 @@
 import replaceAll from './Utils/StringReplacer'
+import DicePageVM from './DicePageViewManager.js'
 const uuidv4 = require('uuid/v4');
 
 const createDiceEditPage = function(dice, pageLayout, diceHeaderComponent, optionComponent) {
@@ -7,46 +8,47 @@ const createDiceEditPage = function(dice, pageLayout, diceHeaderComponent, optio
     '@title': dice.decision,
     '@description': 'to be determined'
   }
-  const diceHeader = replaceAll(diceHeaderComponent, diceMap);
   $('.js-main-content').append(pageLayout);
-  $('.js-edit-decision-face').append(diceHeader);
+  $('.js-edit-decision-face').append(replaceAll(diceHeaderComponent, diceMap));
 
   dice.options.forEach(option => {
     $('.js-edit-options-list').append(replaceAll(optionComponent, {'@option': option.content}));
-    $('.js-delete-option').on("click", (e) => {
+    $('.js-delete-option').click(e => {
       e.stopImmediatePropagation();
       $(e.currentTarget).parent().remove();
-      dice.deleteOption(option.face)
-
-      console.log('option has been deleted');
-      console.log(dice.options);
+      dice.deleteOption(option.face);
     });
-  })
+  });
 
-  $('.js-add-option').focus(() => {
-    if (!$('.js-option-text').val().replace(/\s/g, '').length) {
-      return;
-    }
-    const newId = uuidv4();
-    const newOption = $('.js-option-text').val();
+  $('.js-add-option').focus(() => addOptionToDOM(dice, optionComponent));
+  $('.js-save-dice').click(() => {
+    dice.saveToDB($('.js-input-title').val(), $('.js-input-description').val())
+      .then(() => {
+        page.redirect(`/dice/${dice._id}`);
+        DicePageVM.diceView({params: {decisionId: dice._id}});
+      })
+      .catch((err) => alert('cannot update dice at this time'))
+  });
+  $('.js-delete-dice').click(() => dice.delete());
+}
 
-    $('.js-edit-options-list').append(replaceAll(optionComponent, {'@option': newOption}));
+const addOptionToDOM = function(dice, optionComponent) {
+  if (!$('.js-option-text').val().replace(/\s/g, '').length) {
+    return;
+  }
+  const newId = uuidv4();
+  const newOption = $('.js-option-text').val();
 
-    $('.js-delete-option').on("click", (e) => {
-      e.stopImmediatePropagation();
-      $(e.currentTarget).parent().remove();
-      dice.deleteOption(newId)
-      console.log('option has been deleted');
-      console.log(dice.options);
-    });
+  $('.js-edit-options-list').append(replaceAll(optionComponent, {'@option': newOption}));
 
-    $('.js-option-text').val('');
-    dice.addOption(newId, newOption);
-    console.log(dice.options);
-  })
+  $('.js-delete-option').click(e => {
+    e.stopImmediatePropagation();
+    $(e.currentTarget).parent().remove();
+    dice.deleteOption(newId)
+  });
 
-  $('.js-save-dice').click(() => dice.save())
-  $('.js-delete-dice').click(() => dice.delete())
+  $('.js-option-text').val('');
+  dice.addOption(newId, newOption);
 }
 
 export default {createDiceEditPage}

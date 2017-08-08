@@ -62,6 +62,30 @@ router.get('/:id', (req, res) => {
 
 // (PATCH) return individual dice
 router.patch('/:id', jsonParser, (req, res) => {
+	console.log('calling update dice')
+	const toUpdate = {};
+	const updateableFields = ['decision', 'options'];
+	updateableFields.forEach(field => {
+		if (field in req.body) {
+			toUpdate[field] = req.body[field];
+		}
+	});
+	Decision
+    .findByIdAndUpdate(req.params.id, {$set: toUpdate})
+    .exec()
+    .then(() => {
+			debug("Updating successful");
+			res.status(204).end()
+		})
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({message: 'Internal server error at update /:id'})
+    });
+});
+
+// (PUT) return individual dice
+router.put('/:id', jsonParser, (req, res) => {
+	console.log('calling update dice')
 	const toUpdate = {};
 	const updateableFields = ['decision', 'options'];
 	updateableFields.forEach(field => {

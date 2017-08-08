@@ -35,6 +35,28 @@ export default class Dice {
     return;
   }
 
+  saveToDB (newTitle, newDescription) {
+    console.log('save to DB passing');
+    return new Promise((res, rej) => {
+      this.decision = newTitle;
+      this.description = newDescription;
+      console.log(this);
+      const target = `/decisions/${this._id}`;
+      const urlString = `${target}`;
+      console.log('ajax calling');
+      $.ajax({
+          url: urlString,
+          method: 'PATCH',
+          data: {
+            decision: newTitle,
+            options: this.options
+          }
+        })
+        .done(() => res())
+        .fail(err => rej(`cannot update dice - Error: ${err}`));
+    })
+  }
+
   static load (diceId) {
     // get dice somehow from API and return a promise that resolves with a Dice
     // instance
