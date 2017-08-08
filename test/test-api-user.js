@@ -1,5 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
+const chaiAsPromised = require("chai-as-promised");
 const mongoose = require('mongoose');
 
 const {app, runServer, closeServer} = require('../src/api/server');
@@ -15,42 +16,52 @@ const expect = chai.expect;
 const agent  = chai.request.agent(app);
 
 chai.use(chaiHttp);
+chai.use(chaiAsPromised);
+
+const NEW_USER = {'username': 'test123', 'password': 'password123'};
 
 // test dicisions endpoint
-describe('USER ENDPOINTS', function() {
+describe('Users router', function() {
 
   let cookieInfo;
 
   before(() => runServer(process.env.DATABASE_URL));
-  // beforeEach(() => {
-  //   return seedUserData()
-  //     .then(() => {
-  //       console.log("seed data successful");
-  //     })
-  //     .catch(err => console.log(err));
-  // });
   afterEach(tearDownDb);
   after(closeServer);
 
-  describe('test sign-up flow', function() {
-    it('should create new user on post', function() {
-      const newUser = {'username': 'test123', 'password': 'password123'};
+  xdescribe('root route: `/`', function () {
+
+  })
+
+  xdescribe('sign-in route: `/login`', function () {
+
+  })
+
+  xdescribe('user profile route: `/:id`', function () {
+
+  })
+
+  describe('Sign-up flow', function() {
+
+    it('should respond with a 201 status code', function() {
+      this.timeout(1000)
+
       return chai.request(app)
-        .post(`/user`)
-        .send(newUser)
-        .then(function(res) {
-          res.should.have.status(201);
-          User
-            .findById(res.body.userId)
-            .exec()
-            .then(function(user) {
-              user.username.should.equal(newUser.username);
-              return user.validatePassword(newUser.password);
-            }).then(function(validate) {
-              expect(validate).to.be.true;
-            })
-            .catch(function(err) {console.log(err)});
-        });
+        .post('/user')
+        .send(NEW_USER)
+        .then(res => res.should.have.status(201))
+    })
+
+    it('should create new user on post', function() {
+      return chai.request(app)
+        .post('/user')
+        .send(NEW_USER)
+        .then(res => User.findById(res.body.userId).exec())
+        .then(user => {
+          expect(user.username).to.equal(NEW_USER.username);
+          expect(user.validatePassword(NEW_USER.password)).to.eventually.be.true;
+        })
+        // .catch(function(err) {console.log(err)})
     });
   });
 
@@ -58,26 +69,26 @@ describe('USER ENDPOINTS', function() {
 
     it('should send user._id as json if login is successful', function() {
       const agent = chai.request.agent(app);
-      const newUser = {'username': 'test123', 'password': 'password123'}
       let responseUserId;
       let user;
 
       return chai.request(app)
-        .post(`/user`)
-        .send(newUser)
-        .then(() => User.findOne({username: newUser.username}))
+        .post('/user')
+        .send(NEW_USER)
+        .then(() => User.findOne({username: NEW_USER.username}))
         .then(foundUser => user = foundUser)
-        .then(res => agent
+        .then(() => agent
               .post('/user/login')
-              .auth(newUser.username, newUser.password)
-              .send(newUser)
+              .auth(NEW_USER.username, NEW_USER.password)
+              // .send(NEW_USER)
+              // .send(NEW_USER)
         )
         .then(res => {
           res.should.have.cookie('connect.sid');
           res.should.have.status(201);
           res.body.should.equal(user._id.toString());
         })
-        .catch(function(err) {console.log(err)});
+        // .catch(function(err) {console.log(err)});
     });
   });
 
@@ -91,9 +102,6 @@ describe('USER ENDPOINTS', function() {
 
     it('should send list of decisions as json if user is logged in', function() {
       let cookieInfo;
-      // - [x] Get an user from database (usin the User model)
-      // - [x] Sign in with this user (store cookie info)
-      // - [ ] Get his/her list of decisions
 
       User.findOne()
         .exec()
@@ -114,7 +122,7 @@ describe('USER ENDPOINTS', function() {
           res.should.have.status(200);
           console.log('typeof json property', typeof expect(res).to.be.json);
         })
-        .catch(function(err) {console.log(`error = ${err}`)});
+        // .catch(function(err) {console.log(`error = ${err}`)});
     });
   });
 

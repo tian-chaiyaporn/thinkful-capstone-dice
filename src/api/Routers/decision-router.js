@@ -3,6 +3,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
+const debug = require('debug')('dice');
 
 const router = express.Router();
 const {Decision} = require('../Models/Decision');
@@ -36,7 +37,7 @@ router.post('/new', jsonParser, (req, res) => {
 			decision: req.body.decision,
 			options: req.body.options})
     .then((decisions) => {
-			console.log('created new dice')
+			debug('created new dice')
 			res.status(201).json(decisions);
 		})
     .catch(err => {
@@ -72,7 +73,7 @@ router.patch('/:id', jsonParser, (req, res) => {
     .findByIdAndUpdate(req.params.id, {$set: toUpdate})
     .exec()
     .then(() => {
-			console.log("Updating successful");
+			debug("Updating successful");
 			res.status(204).end()
 		})
     .catch(err => {
@@ -88,7 +89,7 @@ router.delete('/:id', (req, res) => {
     .exec()
     .then(() => {
 			res.status(204).end();
-			console.log(`Deleted blog post item \`${req.params.id}\``);
+			debug(`Deleted item \`${req.params.id}\``);
 		})
     .catch(err => {
       console.error(err);

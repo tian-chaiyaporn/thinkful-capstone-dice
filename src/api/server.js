@@ -5,6 +5,7 @@ const path    = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
+const debug = require('debug')('dice');
 
 // const {PORT, DATABASE_URL} = require('../config');
 const {Decision} = require('./Models/Decision');
@@ -54,7 +55,7 @@ function runServer(databaseUrl = process.env.DATABASE_URL, port = process.env.PO
         return reject(err);
       }
       server = app.listen(port, () => {
-        console.log(`Your app is listening on port ${port}`);
+        debug(`Your app is listening on port ${port}`);
         resolve();
       })
       .on('error', err => {
@@ -67,20 +68,14 @@ function runServer(databaseUrl = process.env.DATABASE_URL, port = process.env.PO
 
 function closeServer() {
   return mongoose.disconnect().then(() => {
-     return new Promise((resolve, reject) => {
-       console.log('Closing server');
-       server.close(err => {
-           if (err) {
-               return reject(err);
-           }
-           resolve();
-       });
-     });
+    debug('Closing server');
+
+     return new Promise((res, rej) => server.close(err => err ? rej(err) : res()));
   });
 }
 
 if (require.main === module) {
-  runServer().catch(err => console.error(err));
+  runServer().catch(console.error.bind(console));
 }
 
 module.exports = {app, runServer, closeServer};

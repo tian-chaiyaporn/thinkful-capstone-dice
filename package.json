@@ -9,13 +9,14 @@
     "start-dev": "nodemon ./src/api/server.js localhost 8080",
     "build": "gulp",
     "build:browserify": "browserify mid-build/js -t babelify --outfile build/assets/app.js",
-    "test": "mocha --compilers js:babel-core/register --bail",
-    "test-i": "mocha --compilers js:babel-core/register --bail --grep"
+    "test": "mocha -b --compilers js:babel-core/register",
+    "test-i": "mocha -b --compilers js:babel-core/register --grep"
   },
   "dependencies": {
     "babel-polyfill": "^6.23.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
+    "debug": "^2.6.8",
     "dotenv": "^4.0.0",
     "express": "^4.15.3",
     "express-session": "^1.15.3",
@@ -23,7 +24,8 @@
     "page": "^1.7.1",
     "page.js": "^4.13.3",
     "passport": "^0.3.2",
-    "passport-http": "^0.3.0"
+    "passport-http": "^0.3.0",
+    "uuid": "^3.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -32,6 +34,7 @@
     "babelify": "^7.3.0",
     "browserify": "^14.4.0",
     "chai": "^4.0.2",
+    "chai-as-promised": "^7.1.1",
     "chai-http": "^3.0.0",
     "faker": "^4.1.0",
     "gulp": "^3.9.1",

@@ -18,6 +18,23 @@ export default class Dice {
       })
   }
 
+  deleteOption (optionId) {
+    this.options.splice(
+      this.options.indexOf(
+        this.options.find(opt => opt.face === optionId)
+      ), 1
+    );
+    return;
+  }
+
+  addOption (optionId, optionContent) {
+    this.options.push({
+      face: optionId,
+      content: optionContent
+    })
+    return;
+  }
+
   static load (diceId) {
     // get dice somehow from API and return a promise that resolves with a Dice
     // instance

@@ -123,7 +123,6 @@ router.post('/', (req, res) => {
 router.post('/login',
   passport.authenticate('basic', {session: true}),
   (req, res) => {
-    console.log(req.user);
     res.status(201).json(req.user._id);
 });
 
@@ -135,7 +134,6 @@ router.get('/:id',
       console.log("no req.user param, thus no log in");
       res.status(500).json({message: 'User not logged in'})
     } else {
-      console.log('user-id path receiving request');
       return User
         .find(req.body.id)
         .exec()
