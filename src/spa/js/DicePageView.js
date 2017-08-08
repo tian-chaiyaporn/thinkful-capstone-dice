@@ -4,11 +4,16 @@ const createDicePage = function(dice, pageLayout, diceComponent, optionComponent
   console.log('createDicePage was called');
   const diceMap = {
     '@title': dice.decision,
-    '@description': 'to be determined'
+    '@description': 'to be determined',
+    '@id': dice._id
   }
-  const card = replaceAll(diceComponent, diceMap);
-  $('.js-main-content').append(pageLayout);
-  $('.js-decision-face').append(card);
+  const pageMap = {
+    '@id': dice._id
+  }
+  const diceFace = replaceAll(diceComponent, diceMap);
+  const page = replaceAll(pageLayout, pageMap);
+  $('.js-main-content').append(page);
+  $('.js-decision-face').append(diceFace);
   $('.js-roll').click((e) => {
     e.stopImmediatePropagation();
     dice.roll().then(result => alert(result.content));
