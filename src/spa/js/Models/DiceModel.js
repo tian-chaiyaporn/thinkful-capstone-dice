@@ -47,6 +47,7 @@ export default class Dice {
         "options": this.options
       })
       console.log(jsonData)
+      console.log(urlString)
       $.ajax({
           url: urlString,
           method: 'PATCH',
