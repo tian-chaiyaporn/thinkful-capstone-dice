@@ -12,9 +12,9 @@ const diceView = function(ctx) {
   debug(`id = ${id}`);
   return Promise.all([
       DecisionListState.getDiceById(ctx.params.decisionId),
-      ComponentState.getComponent('decision-page'),
-      ComponentState.getComponent('decision-face'),
-      ComponentState.getComponent('decision-option')
+      ComponentState.getComponent('dice-page'),
+      ComponentState.getComponent('dice-face'),
+      ComponentState.getComponent('dice-option')
     ])
     .then((payload) => {
       if (!payload[0]) {

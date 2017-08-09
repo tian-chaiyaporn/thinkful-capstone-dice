@@ -13,7 +13,7 @@ const createDicePage = function(dice, pageLayout, diceComponent, optionComponent
   const diceFace = replaceAll(diceComponent, diceMap);
   const page = replaceAll(pageLayout, pageMap);
   $('.js-main-content').append(page);
-  $('.js-decision-face').append(diceFace);
+  $('.js-dice-face').append(diceFace);
   $('.js-roll').click((e) => {
     e.stopImmediatePropagation();
     dice.roll().then(result => alert(result.content));

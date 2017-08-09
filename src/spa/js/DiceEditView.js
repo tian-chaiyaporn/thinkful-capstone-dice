@@ -12,9 +12,9 @@ const createDiceEditPage = function(dice, pageLayout, diceHeaderComponent, optio
     '@description': 'to be determined'
   }
   $('.js-main-content').append(pageLayout);
-  $('.js-edit-decision-face').append(replaceAll(diceHeaderComponent, diceMap));
-  $('.js-edit-decision-option').append(saveBtn);
-  $('.js-edit-decision-option').append(deleteBtn);
+  $('.js-edit-dice-face').append(replaceAll(diceHeaderComponent, diceMap));
+  $('.js-edit-dice-option').append(saveBtn);
+  $('.js-edit-dice-option').append(deleteBtn);
 
   dice.options.forEach(option => {
     $('.js-edit-options-list').append(replaceAll(optionComponent, {'@option': option.content}));

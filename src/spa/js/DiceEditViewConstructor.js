@@ -10,9 +10,9 @@ const diceEditView = (ctx) => {
   console.log(`id = ${id}`);
   return Promise.all([
       DecisionListState.getDiceById(ctx.params.decisionId),
-      ComponentState.getComponent('decision-edit-page'),
-      ComponentState.getComponent('decision-edit-face'),
-      ComponentState.getComponent('decision-edit-option'),
+      ComponentState.getComponent('dice-edit-page'),
+      ComponentState.getComponent('dice-edit-face'),
+      ComponentState.getComponent('dice-edit-option'),
       ComponentState.getComponent('save-button'),
       ComponentState.getComponent('delete-button')
     ])
