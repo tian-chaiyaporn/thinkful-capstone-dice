@@ -4,13 +4,14 @@ const {Decision} = require('../src/api/Models/Decision');
 const {User} = require('../src/api/Models/User');
 const debug = require('debug')('dice');
 
-function seedDecisionData() {
+function seedDecisionData(done) {
   debug('seeding decisions data');
   const seedData = [];
   for (let i=1; i<=10; i++) {
     seedData.push(generateDecisionData());
   }
   return Decision.insertMany(seedData);
+  done();
 }
 
 function seedUserData() {
