@@ -10,7 +10,7 @@ const viewHome = function() {
 
   return Promise.all([
     ComponentState.getComponent('decision-new-page'),
-    ComponentState.getComponent('decision-new-face'),
+    ComponentState.getComponent('decision-edit-face'),
     ComponentState.getComponent('decision-edit-option')
     ])
     .then((payload) => {

@@ -5,7 +5,7 @@ import AddButton from './AddButton.js'
 import DeleteButton from './DeleteButton.js'
 import SaveButton from './SaveButton.js'
 
-const createDiceEditPage = function(dice, pageLayout, diceHeaderComponent, optionComponent) {
+const createDiceEditPage = function(dice, pageLayout, diceHeaderComponent, optionComponent, saveBtn, deleteBtn) {
   console.log('createDiceEditPage was called');
   const diceMap = {
     '@title': dice.decision,
@@ -13,6 +13,8 @@ const createDiceEditPage = function(dice, pageLayout, diceHeaderComponent, optio
   }
   $('.js-main-content').append(pageLayout);
   $('.js-edit-decision-face').append(replaceAll(diceHeaderComponent, diceMap));
+  $('.js-edit-decision-option').append(saveBtn);
+  $('.js-edit-decision-option').append(deleteBtn);
 
   dice.options.forEach(option => {
     $('.js-edit-options-list').append(replaceAll(optionComponent, {'@option': option.content}));

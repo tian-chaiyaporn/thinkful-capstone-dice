@@ -12,16 +12,18 @@ const diceEditView = (ctx) => {
       DecisionListState.getDiceById(ctx.params.decisionId),
       ComponentState.getComponent('decision-edit-page'),
       ComponentState.getComponent('decision-edit-face'),
-      ComponentState.getComponent('decision-edit-option')
+      ComponentState.getComponent('decision-edit-option'),
+      ComponentState.getComponent('save-button'),
+      ComponentState.getComponent('delete-button')
     ])
-    .then((payload) => {
-      console.log(payload);
-      if (!payload[0]) {
+    .then((data) => {
+      console.log(data);
+      if (!data[0]) {
         console.log('there is no dice data');
         throw new Error('There is no data');
       } else {
         UtilFunc.clearHtml('js-main-content')
-        DiceEditView.createDiceEditPage(payload[0], payload[1], payload[2], payload[3]);
+        DiceEditView.createDiceEditPage(data[0], data[1], data[2], data[3], data[4], data[5]);
       }
     });
 };
