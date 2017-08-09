@@ -10,8 +10,9 @@ function seedDecisionData(done) {
   for (let i=1; i<=10; i++) {
     seedData.push(generateDecisionData());
   }
-  return Decision.insertMany(seedData);
   done();
+
+  return Decision.insertMany(seedData);
 }
 
 function seedUserData() {
