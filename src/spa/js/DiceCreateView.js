@@ -20,7 +20,7 @@ const createDiceEditPage = function(pageLayout, diceHeaderComponent, optionCompo
 
   Dice.create(newDiceWorkingMemory)
     .then((dice) => {
-      $('.js-add-option').focus(() => AddButton.addOptionToDOM(dice, optionComponent));
+      $('.js-add-option').click(() => AddButton.addOptionToDOM(dice, optionComponent));
       $('.js-save-dice').click(() => SaveButton.saveDice(dice, $('.js-input-title').val(), $('.js-input-description').val()));
       $('.js-delete-dice').click(() => DeleteButton.deleteDice(dice))
     })
