@@ -1,7 +1,7 @@
 import 'babel-polyfill';
 import DecisionListState from '../src/spa/js/Models/DecisionListState';
 import ComponentState from '../src/spa/js/Models/ComponentState'
-import DicePageVM from '../src/spa/js/DicePageViewManager';
+import DicePageViewConstructor from '../src/spa/js/DicePageViewConstructor';
 import DicePageView from '../src/spa/js/DicePageView';
 import Util from '../src/spa/js/Utils/ClearHTML';
 
@@ -10,7 +10,7 @@ const sinon = require('sinon');
 
 const should = chai.should();
 
-describe('DicePageViewManager', function() {
+describe('DicePageViewConstructor', function() {
 
   const seedData = {
     '_id': 12345,
@@ -50,7 +50,7 @@ describe('DicePageViewManager', function() {
   it('should create decision page if there is data', function() {
     loadDiceById.resolves(seedData);
 
-    return DicePageVM.diceView(testObj)
+    return DicePageViewConstructor.diceView(testObj)
       .then(function(payload) {
         sinon.assert.calledOnce(loadDiceById);
         sinon.assert.calledThrice(loadComponent);

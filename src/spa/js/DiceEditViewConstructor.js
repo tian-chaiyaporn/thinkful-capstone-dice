@@ -26,7 +26,5 @@ const diceEditView = (ctx) => {
     });
 };
 
-const deleteDiceFromCache = (dice) => DecisionListState.removeDiceById(dice._id);
-
 // export default DiceView
-export default {diceEditView, deleteDiceFromCache}
+export default {diceEditView}

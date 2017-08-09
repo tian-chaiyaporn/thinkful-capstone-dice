@@ -1,5 +1,5 @@
 import 'babel-polyfill';
-import Home from '../src/spa/js/HomeViewManager';
+import Home from '../src/spa/js/HomeViewConstructor';
 import DecisionCardView from '../src/spa/js/DecisionCardView';
 import DecisionListState from '../src/spa/js/Models/DecisionListState';
 import ComponentState from '../src/spa/js/Models/ComponentState';

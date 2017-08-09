@@ -2,18 +2,18 @@ import RandomNGenerator from './Utils/RandomNGenerator'
 import Constant from './Utils/constants'
 import Dice from './Models/DiceModel'
 import DecisionList from './Models/DecisionListState'
-import HomeVM from './HomeViewManager';
-import DiceVM from './DicePageViewManager';
-import DiceEditVM from './DiceEditViewManager';
-// import {DiceView} from './DicePageViewManager';
+import HomeViewConstructor from './HomeViewConstructor';
+import DiceViewConstructor from './DicePageViewConstructor';
+import DiceEditViewConstructor from './DiceEditViewConstructor';
+// import {DiceView} from './DicePageViewConstructor';
 import page from 'page';
 
 // initialize page.js for routing in the front-end
 // page.base('/')
-page('/', HomeVM.viewHome);
+page('/', HomeViewConstructor.viewHome);
 // page('/dice', DiceVM.diceView);
-page('/dice/:decisionId', DiceVM.diceView);
-page('/dice/edit/:decisionId', DiceEditVM.diceEditView);
+page('/dice/:decisionId', DiceViewConstructor.diceView);
+page('/dice/edit/:decisionId', DiceEditViewConstructor.diceEditView);
 // page('*', () => console.log('fall back'));
 // page('/about', viewAbout);
 // page('/sign-up', signUp);
