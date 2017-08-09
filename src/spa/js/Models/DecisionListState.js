@@ -1,5 +1,5 @@
 import Dice from './DiceModel'
-// import {BASE_URL, PORT} from '../Utils/constants'
+const debug = require('debug')('dice');
 
 const DECISION_LIST = [];
 
@@ -16,7 +16,7 @@ const removeAllDice = () => {DECISION_LIST.length = 0};
 
 // return a list of dice from in-memory
 const getDice = () => {
-  console.log('getDice was called');
+  debug('getDice was called');
   return new Promise((res) => {
     if (DECISION_LIST.length !== 0) {
       res(DECISION_LIST);
@@ -28,7 +28,7 @@ const getDice = () => {
 
 // return a single dice from in-memory
 const getDiceById = (decisionId) => {
-  console.log('getDiceById was called');
+  debug('getDiceById was called');
   return new Promise((res) => {
     if (DECISION_LIST.length !== 0) {
       res(DECISION_LIST.find(dice => dice._id === decisionId));
@@ -40,7 +40,7 @@ const getDiceById = (decisionId) => {
 
 // get lists of decision dice from api
 const getDecisionListApi = function() {
-  console.log('getDecisionListApi was called');
+  debug('getDecisionListApi was called');
   return new Promise((res, rej) => {
     const target = '/decisions';
     const urlString = `${target}`;

@@ -3,11 +3,13 @@ import ComponentState from './Models/ComponentState'
 import DicePageView from './DicePageView'
 import UtilFunc from './Utils/ClearHTML'
 
+const debug = require('debug')('dice');
+
 // create the home page
 // control fetching lists of decision dice and input as html
 const diceView = function(ctx) {
   const id = ctx.params.decisionId;
-  console.log(`id = ${id}`);
+  debug(`id = ${id}`);
   return Promise.all([
       DecisionListState.getDiceById(ctx.params.decisionId),
       ComponentState.getComponent('decision-page'),

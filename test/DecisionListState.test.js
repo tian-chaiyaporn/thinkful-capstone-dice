@@ -7,6 +7,8 @@ const sinon = require('sinon');
 const should = chai.should();
 const sandbox = sinon.sandbox.create();
 
+const debug = require('debug')('dice');
+
 describe('DecisionListState Control', function() {
 
   const seedData = {

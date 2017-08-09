@@ -12,6 +12,8 @@ const sinon = require('sinon');
 const should = chai.should();
 const expect = chai.expect;
 
+const debug = require('debug')('dice');
+
 describe('viewHome', function() {
 
   let createCard;

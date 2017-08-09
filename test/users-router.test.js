@@ -15,6 +15,8 @@ const should = chai.should();
 const expect = chai.expect;
 const agent  = chai.request.agent(app);
 
+const debug = require('debug')('dice');
+
 chai.use(chaiHttp);
 chai.use(chaiAsPromised);
 
@@ -96,7 +98,7 @@ describe('Users router', function() {
 
     before(() => {
       return seedUserData()
-        .then(() => console.log("seed data successful"))
+        .then(() => debug("seed data successful"))
         .catch(err => console.log(err))
     });
 
@@ -120,7 +122,7 @@ describe('Users router', function() {
         })
         .then(res => {
           res.should.have.status(200);
-          console.log('typeof json property', typeof expect(res).to.be.json);
+          debug('typeof json property', typeof expect(res).to.be.json);
         })
         // .catch(function(err) {console.log(`error = ${err}`)});
     });
