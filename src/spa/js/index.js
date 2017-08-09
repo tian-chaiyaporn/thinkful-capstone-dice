@@ -9,6 +9,7 @@ import DiceEditVM from './DiceEditViewManager';
 import page from 'page';
 
 // initialize page.js for routing in the front-end
+// page.base('/')
 page('/', HomeVM.viewHome);
 // page('/dice', DiceVM.diceView);
 page('/dice/:decisionId', DiceVM.diceView);
@@ -24,4 +25,4 @@ page('/dice/edit/:decisionId', DiceEditVM.diceEditView);
 // page('/:username/:decisionId/edit', editDice);
 // page('/:username/:decisionId/delete', deleteDice);
 //
-page({ hashbang: false });
+page();

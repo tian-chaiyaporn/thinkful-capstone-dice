@@ -1,5 +1,6 @@
 import replaceAll from './Utils/StringReplacer'
 import DicePageVM from './DicePageViewManager.js'
+import DiceEditVM from './DiceEditViewManager.js'
 const uuidv4 = require('uuid/v4');
 
 const createDiceEditPage = function(dice, pageLayout, diceHeaderComponent, optionComponent) {
@@ -21,15 +22,17 @@ const createDiceEditPage = function(dice, pageLayout, diceHeaderComponent, optio
   });
 
   $('.js-add-option').focus(() => addOptionToDOM(dice, optionComponent));
-  $('.js-save-dice').click(() => {
-    dice.saveToDB($('.js-input-title').val(), $('.js-input-description').val())
-      .then(() => {
-        page.redirect(`/dice/${dice._id}`);
-        DicePageVM.diceView({params: {decisionId: dice._id}});
-      })
+  $('.js-save-dice').click((e) => {
+    dice.saveToDb($('.js-input-title').val(), $('.js-input-description').val())
+      .then(() => page(`/dice/${dice._id}`))
       .catch((err) => alert('cannot update dice at this time'))
   });
-  $('.js-delete-dice').click(() => dice.delete());
+  $('.js-delete-dice').click(() => {
+    dice.deleteFromDb()
+      .then(() => DiceEditVM.deleteDiceFromCache(dice))
+      .then(() => page('/'))
+      .catch((err) => alert('cannot delete dice at this time'))     
+  })
 }
 
 const addOptionToDOM = function(dice, optionComponent) {

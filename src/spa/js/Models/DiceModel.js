@@ -35,25 +35,43 @@ export default class Dice {
     return;
   }
 
-  saveToDB (newTitle, newDescription) {
-    console.log('save to DB passing');
+  saveToDb (newTitle, newDescription) {
     return new Promise((res, rej) => {
       this.decision = newTitle;
       this.description = newDescription;
-      console.log(this);
+      console.log(this.options);
       const target = `/decisions/${this._id}`;
       const urlString = `${target}`;
-      console.log('ajax calling');
+      const jsonData = JSON.stringify({
+        "decision": newTitle,
+        "options": this.options
+      })
+      console.log(jsonData)
       $.ajax({
           url: urlString,
           method: 'PATCH',
-          data: {
-            decision: newTitle,
-            options: this.options
-          }
+          data: JSON.stringify({
+            "decision": newTitle,
+            "options": this.options
+          }),
+          contentType: "application/json; charset=utf-8",
+          dataType: "json"
         })
         .done(() => res())
         .fail(err => rej(`cannot update dice - Error: ${err}`));
+    })
+  }
+
+  deleteFromDb () {
+    return new Promise((res, rej) => {
+      const target = `/decisions/${this._id}`;
+      const urlString = `${target}`;
+      $.ajax({
+          url: urlString,
+          method: 'DELETE'
+        })
+        .done(() => res())
+        .fail(err => rej(`cannot delete dice - Error: ${err}`));
     })
   }
 

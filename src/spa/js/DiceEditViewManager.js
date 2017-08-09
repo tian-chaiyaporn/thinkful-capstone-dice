@@ -1,13 +1,11 @@
 import DecisionListState from './Models/DecisionListState'
 import ComponentState from './Models/ComponentState'
-import DiceEditView from './DiceEditPageView'
-import {BASE_URL, PORT} from './Utils/constants'
-import replaceAll from './Utils/StringReplacer'
+import DiceEditView from './DiceEditView'
 import UtilFunc from './Utils/ClearHTML'
 
 // create the home page
 // control fetching lists of decision dice and input as html
-const diceEditView = function(ctx) {
+const diceEditView = (ctx) => {
   const id = ctx.params.decisionId;
   console.log(`id = ${id}`);
   return Promise.all([
@@ -28,5 +26,7 @@ const diceEditView = function(ctx) {
     });
 };
 
+const deleteDiceFromCache = (dice) => DecisionListState.removeDiceById(dice._id);
+
 // export default DiceView
-export default {diceEditView}
+export default {diceEditView, deleteDiceFromCache}

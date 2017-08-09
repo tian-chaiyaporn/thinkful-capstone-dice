@@ -1,5 +1,5 @@
 import Dice from './DiceModel'
-import {BASE_URL, PORT} from '../Utils/constants'
+// import {BASE_URL, PORT} from '../Utils/constants'
 
 const DECISION_LIST = [];
 
@@ -8,7 +8,7 @@ const addDice = (dice) => {DECISION_LIST.push(new Dice(dice))};
 
 // remove dice from decision list by ID
 const removeDiceById = (dice_id) => {
-  DECISION_LIST.splice(DECISION_LIST.indexOf(dice => dice === dice_id), 1);
+  DECISION_LIST.splice(DECISION_LIST.indexOf(DECISION_LIST.find(dice => dice._id === dice_id)), 1);
 };
 
 // remove all dice to decision list
@@ -33,7 +33,7 @@ const getDiceById = (decisionId) => {
     if (DECISION_LIST.length !== 0) {
       res(DECISION_LIST.find(dice => dice._id === decisionId));
     } else {
-      getDecisionListApi().then(() => res(DECISION_LIST.find(dice => dice_id === decisionId)));
+      getDecisionListApi().then(() => res(DECISION_LIST.find(dice => dice._id === decisionId)));
     }
   })
 }
@@ -54,4 +54,4 @@ const getDecisionListApi = function() {
   })
 };
 
-export default {addDice, removeAllDice, getDice, getDiceById, getDecisionListApi};
+export default {addDice, removeAllDice, removeDiceById, getDice, getDiceById, getDecisionListApi};

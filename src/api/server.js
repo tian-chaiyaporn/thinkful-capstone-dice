@@ -1,6 +1,7 @@
 require('dotenv').config()
 
 const express = require('express');
+const fallback = require('express-history-api-fallback')
 const path    = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -16,14 +17,22 @@ const app = express();
 mongoose.Promise = global.Promise;
 
 app.use('/static', express.static(path.join(__dirname, '../..', '/build')))
+
 app.use('/decisions', decisionRoute);
 app.use('/user', userRoute);
+
+const root = path.join(__dirname, '../..', '/build');
+app.use(fallback('index.html', { root }))
 
 /********* HOME HANDLER ********************/
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../../build/index.html'))
 })
+//
+// app.get('/*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../../build/index.html'))
+// })
 
 /********* APP SERVER CONTROL **********************/
 

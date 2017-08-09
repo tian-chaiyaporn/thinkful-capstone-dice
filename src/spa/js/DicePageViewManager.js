@@ -1,8 +1,6 @@
 import DecisionListState from './Models/DecisionListState'
 import ComponentState from './Models/ComponentState'
 import DicePageView from './DicePageView'
-import {BASE_URL, PORT} from './Utils/constants'
-import replaceAll from './Utils/StringReplacer'
 import UtilFunc from './Utils/ClearHTML'
 
 // create the home page
