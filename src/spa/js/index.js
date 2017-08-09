@@ -1,13 +1,14 @@
 import HomeViewConstructor from './HomeViewConstructor';
 import DiceViewConstructor from './DicePageViewConstructor';
 import DiceEditViewConstructor from './DiceEditViewConstructor';
+import DiceCreateViewConstructor from './DiceCreateViewConstructor';
 import page from 'page';
 
 // initialize page.js for routing in the front-end
 page('/', HomeViewConstructor.viewHome);
+page('/dice/new', DiceCreateViewConstructor.newDice);
 page('/dice/:decisionId', DiceViewConstructor.diceView);
 page('/dice/edit/:decisionId', DiceEditViewConstructor.diceEditView);
-// page('/dice', DiceVM.diceView);
 // page('/about', viewAbout);
 // page('/sign-up', signUp);
 // page('/sign-in', signIn);

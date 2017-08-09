@@ -1,6 +1,4 @@
 import replaceAll from './Utils/StringReplacer'
-import DicePageViewConstructor from './DicePageViewConstructor.js'
-import DiceEditViewConstructor from './DiceEditViewConstructor.js'
 import AddButton from './AddButton.js'
 import DeleteButton from './DeleteButton.js'
 import SaveButton from './SaveButton.js'
