@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-// this is our schema to represent a restaurant
 const decisionSchema = mongoose.Schema({
   id: {type: Number},
   decision: {type: String, required: true},

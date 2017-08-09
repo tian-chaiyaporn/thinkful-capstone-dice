@@ -31,17 +31,11 @@ describe('Users router', function() {
   afterEach(tearDownDb);
   after(closeServer);
 
-  xdescribe('root route: `/`', function () {
+  xdescribe('root route: `/`', function () {})
 
-  })
+  xdescribe('sign-in route: `/login`', function () {})
 
-  xdescribe('sign-in route: `/login`', function () {
-
-  })
-
-  xdescribe('user profile route: `/:id`', function () {
-
-  })
+  xdescribe('user profile route: `/:id`', function () {})
 
   describe('Sign-up flow', function() {
 
@@ -80,10 +74,8 @@ describe('Users router', function() {
         .then(() => User.findOne({username: NEW_USER.username}))
         .then(foundUser => user = foundUser)
         .then(() => agent
-              .post('/user/login')
-              .auth(NEW_USER.username, NEW_USER.password)
-              // .send(NEW_USER)
-              // .send(NEW_USER)
+          .post('/user/login')
+          .auth(NEW_USER.username, NEW_USER.password)
         )
         .then(res => {
           res.should.have.cookie('connect.sid');
@@ -99,7 +91,7 @@ describe('Users router', function() {
     before(() => {
       return seedUserData()
         .then(() => debug("seed data successful"))
-        .catch(err => console.log(err))
+        // .catch(err => console.log(err))
     });
 
     it('should send list of decisions as json if user is logged in', function() {
@@ -115,14 +107,13 @@ describe('Users router', function() {
         })
         .then(res => {
           expect(res).to.have.cookie('connect.sid')
-
           return agent
             .get(`/user/${user._id}`)
             send()
         })
         .then(res => {
           res.should.have.status(200);
-          debug('typeof json property', typeof expect(res).to.be.json);
+          // debug('typeof json property', typeof expect(res).to.be.json);
         })
         // .catch(function(err) {console.log(`error = ${err}`)});
     });

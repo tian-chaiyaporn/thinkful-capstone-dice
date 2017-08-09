@@ -1,7 +1,6 @@
 const {BasicStrategy} = require('passport-http');
 const express = require('express');
 const session = require('express-session');
-const mongoose = require('mongoose');
 const jsonParser = require('body-parser').json();
 const urlParser = require('body-parser').urlencoded({     // to support URL-encoded bodies
   extended: true
@@ -11,8 +10,6 @@ const passport = require('passport');
 const router = express.Router();
 const {User} = require('../Models/User');
 const {Decision} = require('../Models/Decision');
-
-mongoose.Promise = global.Promise;
 
 const basicStrategy = new BasicStrategy((username, password, callback) => {
   let user;

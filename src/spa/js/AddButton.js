@@ -2,6 +2,7 @@ import replaceAll from './Utils/StringReplacer'
 const uuidv4 = require('uuid/v4');
 
 const addOptionToDOM = function(dice, optionComponent) {
+  console.log('add button pressed');
   if (!$('.js-option-text').val().replace(/\s/g, '').length) {
     return;
   }
