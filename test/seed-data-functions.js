@@ -4,45 +4,81 @@ const {Decision} = require('../src/api/Models/Decision');
 const {User} = require('../src/api/Models/User');
 const debug = require('debug')('dice');
 
-function seedDecisionData(done) {
+function seedDecisionData() {
   debug('seeding decisions data');
   const seedData = [];
   for (let i=1; i<=10; i++) {
     seedData.push(generateDecisionData());
   }
-  done();
-
   return Decision.insertMany(seedData);
 }
 
 function seedUserData() {
   debug('seeding users data');
   return new Promise(function(resolve, reject) {
-    for (let i=1; i<=5; i++) {
-      generateUserData()
-        .then(function(data) {
-          User.create(data);
-        })
-        // .catch(function(err) {console.log(err);});
+    debug('creating data');
+    const generateDataPromises = [];
+    const logInCredentials = [];
+
+    let i;
+    for (i=1; i<=5; i++) {
+      const fakeUsername = faker.name.firstName()
+      const fakePassword = faker.name.firstName()
+      logInCredentials.push([fakeUsername, fakePassword])
+      generateDataPromises.push(generateUserData(fakeUsername, fakePassword))
     }
-    resolve()
- });
+
+    Promise.all(generateDataPromises)
+      .then(function(payload) {
+        return User.create(payload, function(err, data) {
+          debug('Users created');
+          if (err) {
+            reject(err);
+          }
+          resolve(logInCredentials);
+        })
+      })
+  })
 }
 
-function generateUserData() {
-  return User
-    .hashPassword(faker.name.firstName())
-    .then(function(hash) {
-      return {
-        username: faker.name.firstName(),
-        password: hash,
-        "decision_id": [
-          faker.random.uuid(),
-          faker.random.uuid()
-        ]
-      }
+
+function generateUserData(randomUsername, randomPassword) {
+  return new Promise(function(res, rej) {
+    let hash;
+    const diceIds = []
+
+    User
+    .hashPassword(randomPassword)
+    .then(function(hashPassword) {
+      hash = hashPassword;
+      return Decision
+        .find()
+        .limit(3)
+        .exec()
+    })
+    .then(function(diceArray) {
+      diceArray.forEach(dice => diceIds.push(dice._id));
+    })
+    .then(function() {
+      res({
+          username: randomUsername,
+          password: hash,
+          "decision_id": diceIds
+        })
     });
+  });
 }
+
+function getOneUserData() {
+  console.log('getOneUserData called');
+  return new Promise(function(res, rej) {
+    User.findOne({}, function(err, data) {
+      debug(data);
+      res(data);
+    })
+  })
+}
+
 
 function generateDecisionData() {
   const optionsArray = [];
@@ -77,5 +113,6 @@ module.exports = {
   seedUserData,
   generateDecisionData,
   generateUserData,
-  tearDownDb
+  tearDownDb,
+  getOneUserData
 };

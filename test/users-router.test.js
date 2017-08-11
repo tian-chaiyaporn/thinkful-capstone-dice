@@ -7,7 +7,9 @@ const {app, runServer, closeServer} = require('../src/api/server');
 const {Decision} = require('../src/api/Models/Decision');
 const {User} = require('../src/api/Models/User');
 
-const {seedUserData,
+const {
+      seedDecisionData,
+      seedUserData,
       generateUserData,
       tearDownDb} = require('./seed-data-functions')
 
@@ -80,39 +82,47 @@ describe('Users router', function() {
         .then(res => {
           res.should.have.cookie('connect.sid');
           res.should.have.status(201);
-          res.body.should.equal(user._id.toString());
+          res.body._id.should.equal(user._id.toString());
         })
         // .catch(function(err) {console.log(err)});
     });
   });
 
+  before(seedDecisionData);
+
   describe('test /user/:user-id', function() {
 
+    let loginCredentials;
+
     before(() => {
+      seedDecisionData()
       return seedUserData()
-        .then(() => debug("seed data successful"))
+        .then((payload) => {
+          loginCredentials = payload;
+          debug("seed data successful")
+        })
         // .catch(err => console.log(err))
     });
 
     it('should send list of decisions as json if user is logged in', function() {
+      const agent = chai.request.agent(app);
       let cookieInfo;
+      debug(loginCredentials)
 
-      User.findOne()
-        .exec()
-        .then(function(user) {
-          return agent
-            .post('/user/login')
-            .auth(user.username, user.password)
-            .send()
-        })
+      return agent
+        .post('/user/login')
+        .auth(loginCredentials[1][0], loginCredentials[1][1])
         .then(res => {
+          debug("authorized")
+          debug(res.body._id)
           expect(res).to.have.cookie('connect.sid')
           return agent
-            .get(`/user/${user._id}`)
-            send()
+            .get(`/user/${res.body._id}`)
+            .set({'user': res.body})
         })
         .then(res => {
           res.should.have.status(200);
+          debug(res.body)
           // debug('typeof json property', typeof expect(res).to.be.json);
         })
         // .catch(function(err) {console.log(`error = ${err}`)});

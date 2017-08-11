@@ -1,22 +1,8 @@
 {
   "username": "name123",
   "password": "password123",
-  "decision_id": [
-    "12345abcc",
-    "12345abcd",
-    "12345abce",
-    "12345abcf",
-    "12345abcg",
-  ]
 },
 {
   "username": "2name123",
   "password": "2password123",
-  "decision_id": [
-    "22345abcc",
-    "22345abcd",
-    "22345abce",
-    "22345abcf",
-    "22345abcg",
-  ]
 }

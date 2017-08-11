@@ -11,6 +11,8 @@ const router = express.Router();
 const {User} = require('../Models/User');
 const {Decision} = require('../Models/Decision');
 
+const debug = require('debug')('dice');
+
 const basicStrategy = new BasicStrategy((username, password, callback) => {
   let user;
 
@@ -108,47 +110,46 @@ router.post('/', (req, res) => {
           password: hash
         })
     })
-    .then(user => {
-      return res.status(201).json({userId: user._id});
-    })
-    .catch(err => {
-      res.status(500).json({message: 'Internal server error'})
-    });
+    .then(user => res.status(201).json({userId: user._id}))
+    .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
 
 // log user in
 router.post('/login',
   passport.authenticate('basic', {session: true}),
   (req, res) => {
-    res.status(201).json(req.user._id);
+    res.status(201).json(req.user);
 });
 
 // sends json for all the dice created/saved by the user
 router.get('/:id',
   // passport.authenticate('basic', {session: false}),
   (req, res) => {
-    if (!req.user) {
-      console.log("no req.user param, thus no log in");
+    debug(req.session.passport.user)
+    debug(req.params.id)
+    if (!req.session.passport.user) {
+      console.log("no req.session param, thus no log in");
       res.status(500).json({message: 'User not logged in'})
     } else {
+      const decisions = [];
+      const DecisionFetchPromises = [];
       return User
-        .find(req.body.id)
+        .findById(req.params.id)
         .exec()
-        .then(users => {
-          decisions = [];
-          users.decision_id.forEach(id => {
-            Decision
-              .findById(id)
-              .exec()
-              .then(decision => {
-                decisions.push(decision);
-              })
+        .then((users) => {
+          users.decision_id.forEach((id) => {
+            DecisionFetchPromises.push(
+              Decision
+                .findById(id)
+                .exec()
+                .then(decision => decisions.push(decision)))
           })
-          .then(() => res.json(decisions))
         })
+        .then(() => Promise.all(DecisionFetchPromises))
+        .then(() =>
+          decisions.length !== 0 ? res.json(decisions) : res.json({message: 'no decision data'}))
         .catch(err => {
-          console.log(err);
-          res.status(500).json({message: 'Internal server error for /user/:id'})
+          res.status(500).json({message: `Internal server error for /user/:id : ${err}`})
         });
     }
 });
