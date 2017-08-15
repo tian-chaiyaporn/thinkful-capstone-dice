@@ -64,6 +64,7 @@ passport.deserializeUser(function(id, done) {
 
 // create new user
 router.post('/', (req, res) => {
+  console.log('posting')
   if (!req.body) {
     return res.status(400).json({message: 'No request body'});
   }

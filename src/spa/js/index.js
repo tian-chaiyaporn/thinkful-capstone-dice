@@ -1,8 +1,11 @@
+import NavigationViewConstructor from './NavigationViewConstructor';
 import HomeViewConstructor from './HomeViewConstructor';
 import DiceViewConstructor from './DicePageViewConstructor';
 import DiceEditViewConstructor from './DiceEditViewConstructor';
 import DiceCreateViewConstructor from './DiceCreateViewConstructor';
 import page from 'page';
+
+NavigationViewConstructor.addNavBarFunctions();
 
 // initialize page.js for routing in the front-end
 page('/', HomeViewConstructor.viewHome);
