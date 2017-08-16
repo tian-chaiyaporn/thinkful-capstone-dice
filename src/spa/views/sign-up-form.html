@@ -1,9 +1,19 @@
-<form id="sign-up-form" class="js-sign-up-form" action="POST">
-  <p>
-    <label for="username">username</label> <input name="username" type="text" placeholder="username"/>
-  </p>
-  <p>
-    <label for="password">password</label> <input name="password" type="text" placeholder="password"/>
-  </p>
-  <button type="submit">register now</button>
+<form id="sign-up-form" class="js-sign-up-form mdl-card mdl-shadow--2dp authentication-form" action="POST">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Registration Form</h2>
+  </div>
+  <div class="mdl-card__supporting-text mdl-textfield mdl-js-textfield user-form-input-field">
+    <label for="username">username</label>
+    <input class="mdl-textfield__input" name="username" type="text" placeholder=""/>
+  </div>
+  <div class="mdl-card__supporting-text mdl-textfield mdl-js-textfield user-form-input-field">
+    <label for="password">password</label>
+    <input class="mdl-textfield__input" name="password" type="text" placeholder=""/>
+  </div>
+  <div class="mdl-card__actions user-form-input-field">
+    <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">register now</button>
+  </div>
 </form>
+
+<div class="black-out">
+</div>

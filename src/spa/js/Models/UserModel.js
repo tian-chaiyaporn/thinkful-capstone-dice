@@ -60,6 +60,23 @@ export default class User {
       })
   }
 
+  static logOut () {
+    return new Promise((res, rej) => {
+      const target = `/user/logout`;
+      const urlString = `${target}`;
+      $.ajax({
+          url: urlString,
+          method: 'GET'
+        })
+        .done((payload) => {
+          console.log('signout successful')
+          res()
+          return;
+        })
+        .fail(err => rej(`cannot create dice - Error: ${err}`));
+      })
+  }
+
   static load (diceId) {
     // get dice somehow from API and return a promise that resolves with a Dice
     // instance

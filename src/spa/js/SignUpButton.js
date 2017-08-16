@@ -4,7 +4,12 @@ import UserState from './Models/UserState'
 const viewSignUpForm = function(signUpFormComponent) {
   console.log('add sign up form when clicked');
 
-  $('body').append(signUpFormComponent);
+  $('header').append(signUpFormComponent);
+
+  $('.black-out').click(e => {
+    $(e.currentTarget).remove();
+    $('.js-sign-up-form').remove();
+  })
 
   $('.js-sign-up-form').submit(e => {
     e.preventDefault();
@@ -31,6 +36,8 @@ const viewSignUpForm = function(signUpFormComponent) {
       })
       .then((newUser) => {
         UserState.addUser(newUser);
+        $('.js-sign-in-out').text('sign out');
+        $('.js-sign-up').hide();
       })
       .catch((err) => {
         console.log('fail');

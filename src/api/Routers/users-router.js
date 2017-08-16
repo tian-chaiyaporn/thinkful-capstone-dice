@@ -1,4 +1,4 @@
-const {BasicStrategy} = require('passport-http');
+// const {BasicStrategy} = require('passport-http');
 const express = require('express');
 const session = require('express-session');
 const jsonParser = require('body-parser').json();
@@ -12,33 +12,7 @@ const {User} = require('../Models/User');
 const {Decision} = require('../Models/Decision');
 
 const debug = require('debug')('dice');
-
-const basicStrategy = new BasicStrategy((username, password, callback) => {
-  let user;
-
-  // callback(null, { id: 1, user: 'root' });
-  // return;
-
-  User
-    .findOne({username: username})
-    .exec()
-    .then(_user => {
-      user = _user;
-      if (!user) {
-        return callback(null, false);
-      }
-      return user.validatePassword(password);
-    })
-    .then(isValid => {
-      if (!isValid) {
-        return callback(null, false);
-      }
-      else {
-        return callback(null, user);
-      }
-    })
-    .catch(err => callback(err));
-});
+const basicStrategy = require('../Middlewares/basic-auth-strategy')
 
 passport.use(basicStrategy);
 router.use(passport.initialize());
@@ -119,10 +93,19 @@ router.post('/', (req, res) => {
 router.post('/login',
   passport.authenticate('basic', {session: true}),
   (req, res) => {
+    req.user.password = '';
     res.status(201).json(req.user);
 });
 
+// log user in
+router.get('/logout', function(req, res) {
+  req.logout();
+  res.status(200);
+});
+
 // sends json for all the dice created/saved by the user
+//
+// middleware (params: dice_id -> checks if the dice_id is valid)
 router.get('/:id',
   // passport.authenticate('basic', {session: false}),
   (req, res) => {

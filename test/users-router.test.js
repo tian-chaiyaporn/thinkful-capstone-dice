@@ -80,6 +80,7 @@ describe('Users router', function() {
           .auth(NEW_USER.username, NEW_USER.password)
         )
         .then(res => {
+          console.log(res.body)
           res.should.have.cookie('connect.sid');
           res.should.have.status(201);
           res.body._id.should.equal(user._id.toString());
