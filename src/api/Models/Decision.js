@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const decisionSchema = mongoose.Schema({
   id: {type: Number},
   decision: {type: String, required: true},
+  description: {type: String, required: true},
   options: [
     {face: {type: String}, content: {type: String}}
   ]

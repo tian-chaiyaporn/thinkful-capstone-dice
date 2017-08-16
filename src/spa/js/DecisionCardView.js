@@ -6,7 +6,7 @@ const createDecisionCard = (dice, component) => {
   const map = {
     '@title': dice.decision,
     '@id': dice._id,
-    '@description': 'to be determined'
+    '@description': dice.description
   }
   const card = replaceAll(component, map);
   $('.js-main-content').append(card);

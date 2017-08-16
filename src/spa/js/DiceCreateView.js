@@ -15,6 +15,7 @@ const createDiceEditPage = function(pageLayout, diceHeaderComponent, optionCompo
 
   let newDiceWorkingMemory = {
     'decision': 'new dice',
+    'description': 'new description',
     'options': []
   }
 

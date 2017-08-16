@@ -4,7 +4,7 @@ const createDicePage = function(dice, pageLayout, diceComponent, optionComponent
   console.log('createDicePage was called');
   const diceMap = {
     '@title': dice.decision,
-    '@description': 'to be determined',
+    '@description': dice.description,
     '@id': dice._id
   }
   const pageMap = {

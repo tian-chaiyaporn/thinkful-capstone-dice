@@ -92,6 +92,7 @@ function generateDecisionData() {
   }
   return {
     decision: faker.lorem.sentence(),
+    description: faker.lorem.sentence(),
     options: optionsArray
   }
 }

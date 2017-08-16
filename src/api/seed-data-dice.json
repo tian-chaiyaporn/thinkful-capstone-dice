@@ -1,5 +1,6 @@
 {
   "decision": "which face should I get 1?",
+  "description": "test 1",
   "options": [
     {"face": 1, "content": "cont 1"},
     {"face": 2, "content": "cont 2"},
@@ -8,6 +9,7 @@
 }
 {
   "decision": "which face should I get 2?",
+  "description": "test 2",
   "options": [
     {"face": 1, "content": "cont 2.1"},
     {"face": 2, "content": "cont 2.2"},
@@ -16,6 +18,7 @@
 }
 {
   "decision": "which face should I get 3?",
+  "description": "test 3",
   "options": [
     {"face": 1, "content": "cont 3.1"},
     {"face": 2, "content": "cont 3.2"},
@@ -24,6 +27,7 @@
 }
 {
   "decision": "which face should I get 4?",
+  "description": "test 4",
   "options": [
     {"face": 1, "content": "cont 4.1"},
     {"face": 2, "content": "cont 4.2"},

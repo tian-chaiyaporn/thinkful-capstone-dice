@@ -7,7 +7,7 @@ const createDiceEditPage = function(dice, pageLayout, diceHeaderComponent, optio
   console.log('createDiceEditPage was called');
   const diceMap = {
     '@title': dice.decision,
-    '@description': 'to be determined'
+    '@description': dice.description
   }
   $('.js-main-content').append(pageLayout);
   $('.js-edit-dice-face').append(replaceAll(diceHeaderComponent, diceMap));

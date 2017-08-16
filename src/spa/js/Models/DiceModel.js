@@ -3,7 +3,7 @@ import getRandomNumber from '../Utils/RandomNGenerator';
 export default class Dice {
 
   constructor (decision) {
-    ;['_id', 'decision', 'options'].forEach(key => {
+    ;['_id', 'decision', 'description', 'options'].forEach(key => {
       if (!decision.hasOwnProperty(key)) {
         throw new Error(`Parameter ${key} is  required.`);
       }
@@ -39,20 +39,14 @@ export default class Dice {
     return new Promise((res, rej) => {
       this.decision = newTitle;
       this.description = newDescription;
-      console.log(this.options);
       const target = `/decisions/${this._id}`;
       const urlString = `${target}`;
-      const jsonData = JSON.stringify({
-        "decision": newTitle,
-        "options": this.options
-      })
-      console.log(jsonData)
-      console.log(urlString)
       $.ajax({
           url: urlString,
           method: 'PATCH',
           data: JSON.stringify({
             "decision": newTitle,
+            "description": newDescription,
             "options": this.options
           }),
           contentType: "application/json; charset=utf-8",

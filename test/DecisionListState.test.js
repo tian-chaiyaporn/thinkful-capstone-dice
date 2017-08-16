@@ -14,6 +14,7 @@ describe('DecisionListState Control', function() {
   const seedData = {
     '_id': 12345,
     decision: "which face should I get 1?",
+    description: "test 1",
     options: [
       {face: 1, content: "cont 1"},
       {face: 2, content: "cont 2"},

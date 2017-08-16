@@ -3,14 +3,11 @@
 ## API
 
 ```
-- /
-  - GET => serves the initial HTML
 ```
 
-### TO-DO:
+## TO-DO:
 - map diceId to user when creating the dice
 - create user profile page that shows the dice the users created
-- add description processing to Dice data
 - fix issue with history control of create dice page (disallow dice without options)
 - add checking for title/description value before creating/editing dice
 - add dice graphics + simple animation + pop-up element for rolling dice

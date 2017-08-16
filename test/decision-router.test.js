@@ -68,6 +68,7 @@ describe('DECISIONS ENDPOINTS', function() {
       ];
       const updateData = {
         decision: 'futuristic fusion',
+        description: 'description test',
         options: optionArray
       };
 

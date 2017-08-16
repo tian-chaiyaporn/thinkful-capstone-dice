@@ -35,7 +35,9 @@ router.post('/new', jsonParser, (req, res) => {
 	Decision
 		.create({
 			decision: req.body.decision,
-			options: req.body.options})
+			description: req.body.description,
+			options: req.body.options
+		})
     .then((decisions) => {
 			debug('created new dice')
 			res.status(201).json(decisions);
@@ -66,7 +68,7 @@ router.patch('/:id', jsonParser, (req, res) => {
 	debug('see request body')
 	debug(req.body)
 	const toUpdate = {};
-	const updateableFields = ['decision', 'options'];
+	const updateableFields = ['decision', 'description', 'options'];
 	updateableFields.forEach(field => {
 		if (field in req.body) {
 			toUpdate[field] = req.body[field];
