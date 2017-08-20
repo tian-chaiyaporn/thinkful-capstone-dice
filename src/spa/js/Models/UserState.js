@@ -1,25 +1,29 @@
 import User from './UserModel'
 const debug = require('debug')('dice');
 
-const USER_STATE = {};
+const USER_STATE = [];
 
 // add user to state
 const addUser = (user) => {
   console.log(user);
-  ;['_id', 'username', 'decision_id'].forEach((key) => {USER_STATE[key] = user[key]});
-  console.log('USER_STATE');
+  USER_STATE.push(user)
+  console.log('USER_STATE added');
   console.log(USER_STATE);
 };
 
 const removeUser = () => {
-  for (var key in USER_STATE) {
-    delete USER_STATE[key];
-  }
-  console.log('USER_STATE');
+  USER_STATE.length = 0;
+  console.log('USER_STATE removed');
   console.log(USER_STATE);
 };
 
 // add dice_id to user decision_id list
-const addDiceId = (diceId) => {USER_STATE.diceId.push(diceId)};
+const addDiceId = (diceId) => {
+  console.log('adding dice id to user state')
+  USER_STATE[0].decision_id.push(diceId)
+};
 
-export default {addUser, removeUser, addDiceId};
+const getState = () => USER_STATE[0];
+const getStateObject = () => USER_STATE;
+
+export default {addUser, removeUser, addDiceId, getState, getStateObject};

@@ -1,13 +1,18 @@
+require('dotenv').config();
+const debug = require('debug')('dice');
+
 const express = require('express');
-const fallback = require('express-history-api-fallback');
+const session = require('express-session');
+// const fallback = require('express-history-api-fallback');
+const fallback = require('./Middlewares/fallback-middleware-auth');
 const path    = require('path');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 
+const {User} = require('./Models/User');
+
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-require('dotenv').config();
-const debug = require('debug')('dice');
 
 // const {PORT, DATABASE_URL} = require('../config');
 const {Decision} = require('./Models/Decision');
@@ -16,13 +21,36 @@ const userRoute = require('./Routers/users-router');
 
 const app = express();
 
+const passport = require('passport');
+const basicStrategy = require('./Middlewares/basic-auth-strategy')
+
+passport.use(basicStrategy);
+app.use(passport.initialize());
+const secretString = Buffer('super-secret-string').toString('base64')
+app.use(session({
+  secret: secretString,
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.session());
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
+
 app.use('/static', express.static(path.join(__dirname, '../..', '/build')));
 
 app.use('/decisions', decisionRoute);
 app.use('/user', userRoute);
 
 const root = path.join(__dirname, '../..', '/build');
-app.use(fallback('index.html', { root }))
+app.use(fallback('index.html', 'index_auth.html', { root }))
 
 /********* HOME HANDLER ********************/
 

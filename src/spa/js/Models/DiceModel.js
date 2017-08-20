@@ -12,7 +12,7 @@ export default class Dice {
   }
 
   roll () {
-    return getRandomNumber(1, this.options.length)
+    return getRandomNumber(0, this.options.length)
       .then(chosenOption => {
         return this.options[chosenOption];
       })
@@ -70,23 +70,34 @@ export default class Dice {
     })
   }
 
-  static create (diceInfo) {
-  return new Promise((res, rej) => {
-    const target = `/decisions/new`;
-    const urlString = `${target}`;
-    $.ajax({
-        url: urlString,
-        method: 'POST',
-        data: JSON.stringify(diceInfo),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json"
-      })
-      .done((payload) => {
-        res(new Dice(payload))
-        return;
-      })
-      .fail(err => rej(`cannot create dice - Error: ${err}`));
+  static createMock (diceInfo) {
+    return new Promise((res, rej) => {
+      res( new Dice({
+        _id: 10000001,
+        decision: diceInfo.decision,
+        description: diceInfo.description,
+        options: diceInfo.options
+      }))
     })
+  }
+
+  static create (diceInfo) {
+    return new Promise((res, rej) => {
+      const target = `/decisions/new`;
+      const urlString = `${target}`;
+      $.ajax({
+          url: urlString,
+          method: 'POST',
+          data: JSON.stringify(diceInfo),
+          contentType: "application/json; charset=utf-8",
+          dataType: "json"
+        })
+        .done((payload) => {
+          res(new Dice(payload))
+          return;
+        })
+        .fail(err => rej(`cannot create dice - Error: ${err}`));
+      })
   }
 
   static load (diceId) {

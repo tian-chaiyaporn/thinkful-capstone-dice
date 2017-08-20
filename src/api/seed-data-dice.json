@@ -1,36 +1,50 @@
 {
-  "decision": "which face should I get 1?",
-  "description": "test 1",
+  "decision": "Today's Cuisine",
+  "description": "decide the type of food I'm going to get",
   "options": [
-    {"face": 1, "content": "cont 1"},
-    {"face": 2, "content": "cont 2"},
-    {"face": 3, "content": "cont 3"}
+    {"face": 1, "content": "Japanese"},
+    {"face": 2, "content": "American"},
+    {"face": 3, "content": "French"},
+    {"face": 3, "content": "Italian"},
+    {"face": 3, "content": "Chinese"}
   ]
 }
 {
-  "decision": "which face should I get 2?",
-  "description": "test 2",
+  "decision": "A Balanced Breakfast",
+  "description": "let chance decides if you are going to get a healthy breakfast or a satisfying one",
   "options": [
-    {"face": 1, "content": "cont 2.1"},
-    {"face": 2, "content": "cont 2.2"},
-    {"face": 3, "content": "cont 2.3"}
+    {"face": 1, "content": "Fried Eggs and Bacon"},
+    {"face": 2, "content": "Cereals"},
+    {"face": 3, "content": "Mixed Fruits"},
+    {"face": 4, "content": "Pancakes"},
+    {"face": 5, "content": "Omlette with vegetables in the fridge"},
+    {"face": 6, "content": "Omlette with meat in the fridge"},
+    {"face": 7, "content": "Coffee and Croissant"},
+    {"face": 7, "content": "Potato Salad"}
   ]
 }
 {
-  "decision": "which face should I get 3?",
-  "description": "test 3",
+  "decision": "Weekends in the City",
+  "description": "What should I do this weekend?",
   "options": [
-    {"face": 1, "content": "cont 3.1"},
-    {"face": 2, "content": "cont 3.2"},
-    {"face": 3, "content": "cont 3.3"}
+    {"face": 1, "content": "Brunch Uptown at Joe's favourite Diner"},
+    {"face": 2, "content": "Go to an art Exhibition"},
+    {"face": 3, "content": "Do some exercise at a sport center with friends"},
+    {"face": 3, "content": "Go to a Bar"}
   ]
 }
 {
-  "decision": "which face should I get 4?",
-  "description": "test 4",
+  "decision": "What Book Should I Read Now",
+  "description": "Choose a book in my Kindle to read now",
   "options": [
-    {"face": 1, "content": "cont 4.1"},
-    {"face": 2, "content": "cont 4.2"},
-    {"face": 3, "content": "cont 4.3"}
+    {"face": 1, "content": "Rain: A Natural and Cultural History"},
+    {"face": 2, "content": "The Cosmic Serpernt"},
+    {"face": 3, "content": "Magelord: the Spellmonger series"},
+    {"face": 4, "content": "Empire of Things"},
+    {"face": 5, "content": "Welcome to Your World"},
+    {"face": 6, "content": "The Brotherhood of the Wheel"},
+    {"face": 7, "content": "The Left Hand of Darkness"},
+    {"face": 8, "content": "The Confidence Game"},
+    {"face": 9, "content": "Suggestible You: The Curious Science of Your Brain's Ability to Deceive"}
   ]
 }

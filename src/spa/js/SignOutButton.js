@@ -6,6 +6,8 @@ const signOut = function() {
 
   UserState.removeUser();
   User.logOut();
+  location.reload(true)
+  page('/');
   return Promise.resolve();
 }
 

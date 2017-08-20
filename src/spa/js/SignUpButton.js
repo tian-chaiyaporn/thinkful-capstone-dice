@@ -31,12 +31,12 @@ const viewSignUpForm = function(signUpFormComponent) {
     return User.create(username, password)
       .then((newUser) => {
         console.log('success');
-        $(e.currentTarget).remove();
-        return newUser;
-      })
-      .then((newUser) => {
         UserState.addUser(newUser);
-        $('.js-sign-in-out').text('sign out');
+        $(e.currentTarget).remove();
+        $('.black-out').remove();
+      })
+      .then(() => {
+        $('.js-sign-in-out').text('SIGN OUT');
         $('.js-sign-up').hide();
       })
       .catch((err) => {

@@ -9,6 +9,27 @@ export default class User {
     })
   }
 
+  saveDiceIdToDb (diceId) {
+    return new Promise((res, rej) => {
+      this.decision_id.push(diceId);
+      const target = `/user/add-dice`;
+      const urlString = `${target}`;
+      console.log('saving dice id to db');
+      $.ajax({
+          url: urlString,
+          method: 'PATCH',
+          data: JSON.stringify({
+            "_id": this._id,
+            "decision_id": this.decision_id
+          }),
+          contentType: "application/json; charset=utf-8",
+          dataType: "json"
+        })
+        .done(() => res())
+        .fail(err => rej(err));
+    })
+  }
+
   static create (username, password) {
     return new Promise((res, rej) => {
       const target = `/user`;
@@ -28,7 +49,7 @@ export default class User {
           res(User.signIn(username, password));
           return;
         })
-        .fail(err => rej(`cannot create dice - Error: ${err}`));
+        .fail(err => rej(`cannot create user - Error: ${err}`));
       })
   }
 
@@ -56,7 +77,7 @@ export default class User {
           }))
           return;
         })
-        .fail(err => rej(`cannot create dice - Error: ${err}`));
+        .fail(err => rej(`cannot sign in - Error: ${err}`));
       })
   }
 
@@ -73,19 +94,25 @@ export default class User {
           res()
           return;
         })
-        .fail(err => rej(`cannot create dice - Error: ${err}`));
+        .fail(err => rej(`cannot log out - Error: ${err}`));
       })
   }
 
-  static load (diceId) {
-    // get dice somehow from API and return a promise that resolves with a Dice
-    // instance
-    return jQuery.ajax('asdf', {
-      data: {
-        id: diceId
-      }
-    })
-      .then(payload => new User(payload))
+  static checkAuth (diceId) {
+    return new Promise((res, rej) => {
+      const target = `/user/check-authentication`;
+      const urlString = `${target}`;
+      $.ajax({
+          url: urlString,
+          method: 'GET'
+        })
+        .done((payload) => {
+          console.log('user authentication is successful')
+          res(payload)
+          return;
+        })
+        .fail(err => rej(`user is not authenticated - Error: ${err}`));
+      })
   }
 
   static save (dice) {}

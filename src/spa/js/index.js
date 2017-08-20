@@ -3,7 +3,21 @@ import HomeViewConstructor from './HomeViewConstructor';
 import DiceViewConstructor from './DicePageViewConstructor';
 import DiceEditViewConstructor from './DiceEditViewConstructor';
 import DiceCreateViewConstructor from './DiceCreateViewConstructor';
+import UserState from './Models/UserState';
+import User from './Models/UserModel';
 import page from 'page';
+
+if (userAuth === 'authed') {
+  User.checkAuth()
+    .then((userObject) => {
+      UserState.removeUser();
+      UserState.addUser(userObject);
+    })
+    .catch(() => {
+      userAuth = unauthed
+      window.location.reload(true);
+    })
+}
 
 NavigationViewConstructor.addNavBarFunctions();
 
@@ -20,3 +34,5 @@ page('/dice/edit/:decisionId', DiceEditViewConstructor.diceEditView);
 // page('/:username/:decisionId/delete', deleteDice);
 
 page();
+
+console.log(userAuth)

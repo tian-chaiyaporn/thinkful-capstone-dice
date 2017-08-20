@@ -10,32 +10,20 @@ const debug = require('debug')('dice');
 const addNavBarFunctions = function() {
   debug('equip nav bar with functionalities /sign-up /sign-in /sign-out');
 
-  $('.js-sign-up').click((e) => {
-    //
-    // if ($('#sign-up-form').html() || $('#sign-in-form').html()) {
-    //   return;
-    // }
-
-    ComponentState.getComponent('sign-up-form')
-      .then(payload => SignUpButton.viewSignUpForm(payload))
-  });
+  if($('.js-sign-up')) {
+    $('.js-sign-up').click((e) => {
+      ComponentState.getComponent('sign-up-form')
+        .then(payload => SignUpButton.viewSignUpForm(payload))
+    });
+  }
 
   $('.js-sign-in-out').click((e) => {
-    //
-    // if ($('#sign-up-form').html() || $('#sign-in-form').html()) {
-    //   return;
-    // }
-
     if ($(e.currentTarget).text() === 'SIGN IN') {
       ComponentState.getComponent('sign-in-form')
         .then(payload => SignInButton.viewSignInForm(payload))
     }
     else {
-      SignOutButton.signOut()
-        .then(() => {
-          $(e.currentTarget).text('SIGN IN');
-          $('.js-sign-up').show();
-        });
+      SignOutButton.signOut();
     }
   });
 };

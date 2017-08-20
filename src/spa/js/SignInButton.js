@@ -36,8 +36,10 @@ const viewSignInForm = function(signInFormComponent) {
       })
       .then((newUser) => {
         UserState.addUser(newUser);
-        $('.js-sign-in-out').text('sign out');
-        $('.js-sign-up').hide();
+        page('/');
+        location.reload(true)
+        // $('.js-sign-in-out').text('sign out');
+        // $('.js-sign-up').hide();
       })
       .catch((err) => {
         console.log('fail');

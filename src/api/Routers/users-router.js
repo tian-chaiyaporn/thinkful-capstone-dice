@@ -1,4 +1,3 @@
-// const {BasicStrategy} = require('passport-http');
 const express = require('express');
 const session = require('express-session');
 const jsonParser = require('body-parser').json();
@@ -14,27 +13,8 @@ const {Decision} = require('../Models/Decision');
 const debug = require('debug')('dice');
 const basicStrategy = require('../Middlewares/basic-auth-strategy')
 
-passport.use(basicStrategy);
-router.use(passport.initialize());
-const secretString = Buffer('super-secret-string').toString('base64')
-router.use(session({
-  secret: secretString,
-  resave: false,
-  saveUninitialized: false
-}));
-router.use(passport.session());
 router.use(jsonParser);
 router.use(urlParser);
-
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
-});
-
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
-    done(err, user);
-  });
-});
 
 // create new user
 router.post('/', (req, res) => {
@@ -99,8 +79,59 @@ router.post('/login',
 
 // log user in
 router.get('/logout', function(req, res) {
-  req.logout();
-  res.status(200);
+  req.logOut();
+  req.session.destroy(function (err) {
+    res.clearCookie('connect.sid');
+    res.status(200);
+  });
+});
+
+// log user in
+router.get('/check-authentication', (req, res) => {
+  console.log('fallback is being called');
+  console.log(req.session);
+
+  if (req.session.passport) {
+    console.log("session stored by passport");
+    console.log(req.session.passport.user);
+    User.findById(req.session.passport.user)
+      .then(payload => {
+        res({
+          _id: payload._id,
+          username: payload.username,
+          decision_id: payload.decision_id
+        })
+      });
+  }
+});
+
+// log user in
+router.patch('/add-dice',
+  (req, res) => {
+    console.log('/add-dice is called')
+    console.log(req.session)
+    console.log(req.body)
+    if (!req.session.passport.user) {
+      console.log("no req.session param, thus no log in");
+      res.status(500).json({message: 'User not logged in'})
+    } else {
+      const toUpdate = {};
+    	const updateableFields = ['decision_id'];
+    	updateableFields.forEach(field => {
+    		if (field in req.body) {
+    			toUpdate[field] = req.body[field];
+    		}
+    	});
+      return User
+        .findByIdAndUpdate(req.body._id, {$set: toUpdate})
+        .exec()
+        .then(() => {
+          User.findById(req.body._id).exec().then((user) => console.log(user))
+        })
+        .catch(err => {
+          res.status(500).json({message: `Internal server error for /user/add-dice : ${err}`})
+        });
+    }
 });
 
 // sends json for all the dice created/saved by the user
