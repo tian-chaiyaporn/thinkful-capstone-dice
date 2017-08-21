@@ -43,7 +43,7 @@ describe('viewHome', function() {
     return Home.viewHome.call()
       .then(() => {
         sinon.assert.calledOnce(loadDice);
-        sinon.assert.calledOnce(loadComponent);
+        sinon.assert.calledTwice(loadComponent);
         sinon.assert.calledThrice(createCard);
       });
   });
