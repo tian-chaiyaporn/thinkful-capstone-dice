@@ -11,11 +11,17 @@ const createDecisionCard = (dice, component, diceAnimation) => {
   }
   const card = replaceAll(component, map);
   $('.js-main-content').append(card);
-  $('.js-dice-animation').append(diceAnimation);
   $('.js-roll').click((e) => {
     e.stopImmediatePropagation();
+    const $currentDice = $(e.currentTarget).parent().parent().find('#cube')
     dice.roll()
-      .then(result => alert(result.content));
+      .then(result => {
+        $currentDice.addClass('roll');
+        setTimeout(function(){
+          alert(`Your answer to "${dice.decision}" is: ${result.content}`);
+          $currentDice.removeClass('roll');
+        }, 1000)
+      })
   });
 };
 

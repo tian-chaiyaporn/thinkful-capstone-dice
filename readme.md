@@ -7,7 +7,7 @@
 
 ## TO-DO to complete MVP:
 
-- add dice graphics + simple animation + pop-up element for rolling dice
+- pop-up element for rolling dice
 
 - add simple explainer to site with redirect function
 
