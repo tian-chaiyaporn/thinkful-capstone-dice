@@ -1,11 +1,15 @@
 import DecisionListState from './Models/DecisionListState'
 import ComponentState from './Models/ComponentState'
+import User from './Models/UserModel'
 import DiceEditView from './DiceEditView'
 import UtilFunc from './Utils/ClearHTML'
 
 // create the home page
 // control fetching lists of decision dice and input as html
 const diceEditView = (ctx) => {
+
+  User.checkAuth();
+
   const id = ctx.params.decisionId;
   console.log(`id = ${id}`);
   return Promise.all([

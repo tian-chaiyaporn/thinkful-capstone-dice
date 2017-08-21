@@ -101,6 +101,9 @@ router.get('/check-authentication', (req, res) => {
           'decision_id': payload.decision_id
         })
       });
+  } else {
+    console.log('rejecting authentication');
+    res.status(401).redirect('/');
   }
 });
 

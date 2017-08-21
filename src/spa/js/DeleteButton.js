@@ -1,7 +1,9 @@
 import DecisionListState from './Models/DecisionListState'
+import User from './Models/UserModel'
 
 const deleteDice = function(dice) {
-  dice.deleteFromDb()
+  User.checkAuth()
+    .then(() => dice.deleteFromDb())
     .then(() => deleteDiceFromCache(dice))
     .then(() => page('/'))
     .catch((err) => alert('cannot delete dice at this time'))

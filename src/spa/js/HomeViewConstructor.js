@@ -13,7 +13,8 @@ const viewHome = function() {
 
   return Promise.all([
       DecisionListState.getDice(),
-      ComponentState.getComponent('decision-card')
+      ComponentState.getComponent('decision-card'),
+      ComponentState.getComponent('dice-animation')
     ])
     .then((payload) => {
       debug(payload);
@@ -24,7 +25,7 @@ const viewHome = function() {
       else {
         UtilFunc.clearHtml('js-main-content');
         payload[0].forEach(dice => {
-          DecisionCardView.createDecisionCard(dice, payload[1]);
+          DecisionCardView.createDecisionCard(dice, payload[1], payload[2]);
         })
       }
     });

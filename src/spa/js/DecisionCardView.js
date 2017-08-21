@@ -2,7 +2,7 @@ import replaceAll from './Utils/StringReplacer'
 const debug = require('debug')('dice');
 
 // get template for each decision and display it
-const createDecisionCard = (dice, component) => {
+const createDecisionCard = (dice, component, diceAnimation) => {
   debug('createDecisionCard was called');
   const map = {
     '@title': dice.decision,
@@ -11,9 +11,11 @@ const createDecisionCard = (dice, component) => {
   }
   const card = replaceAll(component, map);
   $('.js-main-content').append(card);
+  $('.js-dice-animation').append(diceAnimation);
   $('.js-roll').click((e) => {
     e.stopImmediatePropagation();
-    dice.roll().then(result => alert(result.content));
+    dice.roll()
+      .then(result => alert(result.content));
   });
 };
 
