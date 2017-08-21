@@ -3,7 +3,6 @@ const debug = require('debug')('dice');
 
 const express = require('express');
 const session = require('express-session');
-// const fallback = require('express-history-api-fallback');
 const fallback = require('./Middlewares/fallback-middleware-auth');
 const path    = require('path');
 const bodyParser = require('body-parser');
@@ -14,7 +13,6 @@ const {User} = require('./Models/User');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-// const {PORT, DATABASE_URL} = require('../config');
 const {Decision} = require('./Models/Decision');
 const decisionRoute = require('./Routers/decision-router');
 const userRoute = require('./Routers/users-router');
@@ -25,13 +23,16 @@ const passport = require('passport');
 const basicStrategy = require('./Middlewares/basic-auth-strategy')
 
 passport.use(basicStrategy);
+
 app.use(passport.initialize());
+
 const secretString = Buffer('super-secret-string').toString('base64')
 app.use(session({
   secret: secretString,
   resave: false,
   saveUninitialized: false
 }));
+
 app.use(passport.session());
 
 passport.serializeUser(function(user, done) {

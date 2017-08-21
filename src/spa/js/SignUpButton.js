@@ -1,5 +1,6 @@
 import User from './Models/UserModel'
 import UserState from './Models/UserState'
+import NavigationViewConstructor from './NavigationViewConstructor'
 
 const viewSignUpForm = function(signUpFormComponent) {
   console.log('add sign up form when clicked');
@@ -36,8 +37,11 @@ const viewSignUpForm = function(signUpFormComponent) {
         $('.black-out').remove();
       })
       .then(() => {
-        $('.js-sign-in-out').text('SIGN OUT');
-        $('.js-sign-up').hide();
+        // $('.js-sign-in-out').text('SIGN OUT');
+        // $('.js-sign-up').hide();
+        // NavigationViewConstructor.addUserPageToNav();
+        page('/');
+        location.reload(true);
       })
       .catch((err) => {
         console.log('fail');

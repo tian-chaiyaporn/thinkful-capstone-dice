@@ -2,6 +2,7 @@ import SignUpButton from './SignUpButton'
 import SignInButton from './SignInButton'
 import SignOutButton from './SignOutButton'
 import ComponentState from './Models/ComponentState'
+import UserState from './Models/UserState'
 
 const debug = require('debug')('dice');
 
@@ -28,4 +29,13 @@ const addNavBarFunctions = function() {
   });
 };
 
-export default {addNavBarFunctions}
+const addUserPageToNav = function() {
+  const user = UserState.getState();
+  $('.js-user-page').text(user.username);
+  $('.js-user-page').click((e) => {
+    // e.preventDefault()
+    // page(`/profile`)
+  });
+}
+
+export default {addNavBarFunctions, addUserPageToNav}

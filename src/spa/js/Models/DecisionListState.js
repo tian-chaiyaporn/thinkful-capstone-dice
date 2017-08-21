@@ -15,13 +15,14 @@ const removeDiceById = (dice_id) => {
 const removeAllDice = () => {DECISION_LIST.length = 0};
 
 // return a list of dice from in-memory
-const getDice = () => {
+const getDice = (idArray) => {
   debug('getDice was called');
   return new Promise((res) => {
     if (DECISION_LIST.length !== 0) {
-      res(DECISION_LIST);
+      res(!idArray ? DECISION_LIST : DECISION_LIST.filter(d => idArray.includes(d._id)));
     } else {
-      getDecisionListApi().then(() => res(DECISION_LIST));
+      getDecisionListApi()
+        .then(() => res(!idArray ? DECISION_LIST : DECISION_LIST.filter(d => idArray.includes(d._id))));
     }
   })
 }

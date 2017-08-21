@@ -98,7 +98,8 @@ export default class User {
       })
   }
 
-  static checkAuth (diceId) {
+  static checkAuth () {
+    console.log('user model is called')
     return new Promise((res, rej) => {
       const target = `/user/check-authentication`;
       const urlString = `${target}`;

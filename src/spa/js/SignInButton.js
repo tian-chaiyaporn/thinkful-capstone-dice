@@ -1,5 +1,6 @@
 import User from './Models/UserModel'
 import UserState from './Models/UserState'
+import NavigationViewConstructor from './NavigationViewConstructor'
 
 const viewSignInForm = function(signInFormComponent) {
   console.log('add sign up form when clicked');
@@ -32,15 +33,19 @@ const viewSignInForm = function(signInFormComponent) {
       .then((newUser) => {
         console.log('success');
         $(e.currentTarget).remove();
+        $('.black-out').remove();
         return newUser;
       })
       .then((newUser) => {
         UserState.addUser(newUser);
         page('/');
-        location.reload(true)
+        location.reload(true);
         // $('.js-sign-in-out').text('sign out');
         // $('.js-sign-up').hide();
       })
+      // .then(() => {
+      //   NavigationViewConstructor.addUserPageToNav()
+      // })
       .catch((err) => {
         console.log('fail');
         console.log(err);

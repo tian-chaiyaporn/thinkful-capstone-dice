@@ -88,18 +88,17 @@ router.get('/logout', function(req, res) {
 
 // log user in
 router.get('/check-authentication', (req, res) => {
-  console.log('fallback is being called');
-  console.log(req.session);
+  debug('checking authentication in api');
+  debug(req.session);
 
   if (req.session.passport) {
-    console.log("session stored by passport");
-    console.log(req.session.passport.user);
+    debug("session stored by passport");
     User.findById(req.session.passport.user)
       .then(payload => {
-        res({
-          _id: payload._id,
-          username: payload.username,
-          decision_id: payload.decision_id
+        res.json({
+          '_id': payload._id,
+          'username': payload.username,
+          'decision_id': payload.decision_id
         })
       });
   }
@@ -108,9 +107,9 @@ router.get('/check-authentication', (req, res) => {
 // log user in
 router.patch('/add-dice',
   (req, res) => {
-    console.log('/add-dice is called')
-    console.log(req.session)
-    console.log(req.body)
+    debug('/add-dice is called')
+    debug(req.session)
+    debug(req.body)
     if (!req.session.passport.user) {
       console.log("no req.session param, thus no log in");
       res.status(500).json({message: 'User not logged in'})
@@ -134,8 +133,6 @@ router.patch('/add-dice',
     }
 });
 
-// sends json for all the dice created/saved by the user
-//
 // middleware (params: dice_id -> checks if the dice_id is valid)
 router.get('/:id',
   // passport.authenticate('basic', {session: false}),

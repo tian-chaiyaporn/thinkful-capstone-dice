@@ -8,17 +8,18 @@ const debug = require('debug')('dice');
 
 // create the home page
 // control fetching lists of decision dice and input as html
-const viewHome = function() {
-  debug('viewHome starting');
+const viewUserPage = function(ctx) {
+  const name = ctx.params.username;
+  const user = UserState.getState();
+  debug('UserPageViewConstructor starting');
 
   return Promise.all([
-      DecisionListState.getDice(),
+      DecisionListState.getDice(user.decision_id),
       ComponentState.getComponent('decision-card')
     ])
     .then((payload) => {
-      debug(payload);
       if (payload[0].length === 0) {
-        debug('there is no data');
+        console.log('there is no data');
         throw new Error('There is no data');
       }
       else {
@@ -30,4 +31,4 @@ const viewHome = function() {
     });
 };
 
-export default {viewHome}
+export default {viewUserPage}

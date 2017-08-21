@@ -1,5 +1,9 @@
 const debug = require('debug')('dice');
 
+// this module is modified from npm package express-history-api-fallback by seb
+// https://www.npmjs.com/package/express-history-api-fallback
+//
+// The modification lets us provide an alternative index based on passport authentication
 module.exports = (...args) => (req, res, next) => {
   debug('fallback is being called');
   debug(req.session);
