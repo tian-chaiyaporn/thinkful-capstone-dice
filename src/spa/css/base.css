@@ -23,6 +23,10 @@ body * {
   height: 78px;
 }
 
+.titles {
+  color: black;
+}
+
 .add-button {
   position: fixed;
   left:10px;
