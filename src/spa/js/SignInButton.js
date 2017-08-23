@@ -12,7 +12,7 @@ const viewSignInForm = function(signInFormComponent) {
     $('.js-sign-in-form').remove();
   })
 
-  $('.js-sign-in-form').submit(e => {
+  $('.js-sign-in-form').on('submit', (e) => {
     e.preventDefault();
 
     const username = $('.js-sign-in-form :input[name=username]').val();
@@ -40,12 +40,7 @@ const viewSignInForm = function(signInFormComponent) {
         UserState.addUser(newUser);
         page('/');
         location.reload(true);
-        // $('.js-sign-in-out').text('sign out');
-        // $('.js-sign-up').hide();
       })
-      // .then(() => {
-      //   NavigationViewConstructor.addUserPageToNav()
-      // })
       .catch((err) => {
         console.log('fail');
         console.log(err);

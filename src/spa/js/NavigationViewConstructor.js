@@ -31,11 +31,7 @@ const addNavBarFunctions = function() {
 
 const addUserPageToNav = function() {
   const user = UserState.getState();
-  $('.js-user-page').text(user.username);
-  $('.js-user-page').click((e) => {
-    // e.preventDefault()
-    // page(`/profile`)
-  });
+  $('.js-user-page').text(user.username.toUpperCase());
 }
 
 export default {addNavBarFunctions, addUserPageToNav}

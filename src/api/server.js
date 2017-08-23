@@ -18,6 +18,9 @@ const decisionRoute = require('./Routers/decision-router');
 const userRoute = require('./Routers/users-router');
 
 const app = express();
+app.use(require('cookie-parser')());
+app.use(require('body-parser').urlencoded({ extended: true }));
+
 
 const passport = require('passport');
 const basicStrategy = require('./Middlewares/basic-auth-strategy')
@@ -41,6 +44,7 @@ passport.serializeUser(function(user, done) {
 
 passport.deserializeUser(function(id, done) {
   User.findById(id, function(err, user) {
+      console.log(user)
     done(err, user);
   });
 });

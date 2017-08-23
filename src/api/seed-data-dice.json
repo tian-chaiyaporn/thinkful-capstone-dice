@@ -1,5 +1,5 @@
 {
-  "decision": "Today's Cuisine",
+  "decision": "What Cuisine Should I Get Now?",
   "description": "decide the type of food I'm going to get",
   "options": [
     {"face": 1, "content": "Japanese"},
@@ -10,8 +10,8 @@
   ]
 }
 {
-  "decision": "A Balanced Breakfast",
-  "description": "let chance decides if you are going to get a healthy breakfast or a satisfying one",
+  "decision": "What Should My Breakfast Be?",
+  "description": "It's a mix of healthy and unhealthy options",
   "options": [
     {"face": 1, "content": "Fried Eggs and Bacon"},
     {"face": 2, "content": "Cereals"},
@@ -24,8 +24,8 @@
   ]
 }
 {
-  "decision": "Weekends in the City",
-  "description": "What should I do this weekend?",
+  "decision": "What Should I Do This Weekend?",
+  "description": "Some of my favorite weekend activities",
   "options": [
     {"face": 1, "content": "Brunch Uptown at Joe's favourite Diner"},
     {"face": 2, "content": "Go to an art Exhibition"},
@@ -34,7 +34,7 @@
   ]
 }
 {
-  "decision": "What Book Should I Read Now",
+  "decision": "What Book Should I Read Now?",
   "description": "Choose a book in my Kindle to read now",
   "options": [
     {"face": 1, "content": "Rain: A Natural and Cultural History"},

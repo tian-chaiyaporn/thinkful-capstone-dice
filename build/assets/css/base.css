@@ -23,13 +23,6 @@ body * {
   height: 78px;
 }
 
-.dice-thumbnail {
-  display: block;
-  width: 100px;
-  height: 100px;
-  background-color: blue;
-}
-
 .add-button {
   position: fixed;
   left:10px;
@@ -45,7 +38,8 @@ body * {
 
 .decision-card-square > .mdl-card__title {
   color: #fff;
-  background: #46B6AC;
+  background: rgba(20,0,0,0.7);
+  text-decoration: none;
 }
 
 .dice-face > * {
@@ -102,9 +96,128 @@ body * {
   background-color: rgba(0, 0, 0, 0.7);
 }
 
+/********* EXPLAINER **************/
+
+.explainer {
+  display: none;
+  margin: 0;
+  padding: 50px 10%;
+  background-color: rgb(30, 180, 255);
+}
+
+.explainer p, h1, h3, h4 {
+  color: white;
+}
+
+.explainer h1, h3, h4 {
+  margin: 60px 0;
+  font-weight: bold;
+}
+
+.explainer p {
+  font-size: 1.3em;
+  line-height: 1.5em;
+  font-weight: 100;
+}
+
+.see-explainer {
+  display: block;
+  margin: 0 auto;
+  background-color: rgb(30, 180, 255);
+  color: white;
+}
+
+/********** RESULT BOX ************/
+
+.result-box {
+  position: absolute;
+  left: 50%;
+  margin-left: -140px;
+  width: 280px;
+  max-height: 500px;
+  margin-top: 0px;
+  background-color: rgba(255 , 255 , 255, 1);
+  color: rgb(100, 0, 0);
+  text-align: center;
+  padding: 25px 20px 25px 20px;
+  z-index: 1;
+  overflow: visible;
+  -webkit-transform: translateY(-400px);
+  -moz-transform: translateY(-400px);
+  -ms-transform: translateY(-400px);
+  transform: translateY(-400px);
+}
+
+.result-box p{
+  margin: 0 auto;
+  padding: 0 auto;
+}
+
+.result-box button{
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  background: transparent;
+  border: none;
+}
+
+.result-box button i{
+  position: absolute;
+  width: 5px;
+  height:5px;
+  left: 0;
+  top: 0;
+  z-index: 2;
+}
+
+/* WebKit and Opera browsers */
+@-webkit-keyframes pop-up {
+ from {
+   -webkit-transform: translateY(-400px);
+ }
+ 12% {
+   -webkit-transform: translateY(0);
+ }
+ to {
+   -webkit-transform: translateY(0px);
+ }
+}
+
+/* all other browsers */
+@keyframes pop-up {
+ from {
+   -moz-transform: translateY(-400px);
+   -ms-transform: translateY(-400px);
+   transform: translateY(-400px);
+ }
+ 12% {
+   -moz-transform: translateY(0);
+   -ms-transform: translateY(0);
+   transform: translateY(0);
+ }
+ to {
+   -webkit-transform: translateY(0px);
+ }
+}
+
+.result-box.pop {
+  -webkit-animation-name: pop-up;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-duration: 4s;
+  -webkit-animation-fill-mode: forwards;
+
+  animation-fill-mode: forwards;
+  animation-name: pop-up;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  animation-duration: 4s;
+}
+
 /********** DICE ANIMATION ************/
 
-.js-dice-animation {
+.dice-animation {
   position: absolute;
   left: 50%;
   margin-left: -50px;
@@ -130,8 +243,8 @@ body * {
   height: 100px;
   display: block;
   position: absolute;
-  border: 1px solid black;
-  background-color: rgba(255, 125, 125, 0.8);
+  border: 2px solid rgba(255, 125, 125, 0.8);;
+  background-color: rgba(255, 125, 125, 0.5);
 }
 
 #cube { transform: translateZ( -50px ); }
@@ -145,34 +258,46 @@ body * {
 
 /* WebKit and Opera browsers */
  @-webkit-keyframes spinner {
-   from { -webkit-transform: rotate3d(15, -30, 60, 0deg);    }
-   to   { -webkit-transform: rotate3d(15, -30, 60, -360deg); }
+   from {
+     -webkit-transform: rotate3d(15, 30, 40, 0deg);
+   }
+   50% {
+     -webkit-transform: rotate3d(-15, -30, 40, -180deg) scale3d(0.7, 0.7, 0.7);
+   }
+   to {
+     -webkit-transform: rotate3d(15, 30, 40, -360deg);
+   }
  }
 
  /* all other browsers */
  @keyframes spinner {
    from {
-     -moz-transform: rotate3d(15, -30, 60, 0deg);
-     -ms-transform: rotate3d(15, -30, 60, 0deg);
-     transform: rotate3d(15, -30, 60, 0deg);
+     -moz-transform: rotate3d(15, 30, 40, 0deg) scale3d(1, 1, 1);
+     -ms-transform: rotate3d(15, 30, 40, 0deg) scale3d(1, 1, 1);
+     transform: rotate3d(15, 30, 40, 0deg) scale3d(1, 1, 1);
+   }
+   50% {
+     -moz-transform: rotate3d(-15, -30, 40, -180deg) scale3d(0.7, 0.7, 0.7);
+     -ms-transform: rotate3d(-15, -30, 40, -180deg) scale3d(0.7, 0.7, 0.7);
+     transform: rotate3d(-15, -30, 40, -180deg) scale3d(0.7, 0.7, 0.7);
    }
    to {
-     -moz-transform: rotate3d(15, -30, 60, -360deg);
-     -ms-transform: rotate3d(15, -30, 60, -360deg);
-     transform: rotate3d(15, -30, 60, -360deg);
+     -moz-transform: rotate3d(15, 30, 40, -360deg) scale3d(1, 1, 1);
+     -ms-transform: rotate3d(15, 30, 40, -360deg) scale3d(1, 1, 1);
+     transform: rotate3d(15, 30, 40, -360deg) scale3d(1, 1, 1);
    }
  }
 
  #cube.roll {
    -webkit-animation-name: spinner;
    -webkit-animation-timing-function: linear;
-   -webkit-animation-iteration-count: 2;
-   -webkit-animation-duration: 0.4s;
+   -webkit-animation-iteration-count: 1;
+   -webkit-animation-duration: 0.7s;
 
    animation-name: spinner;
    animation-timing-function: linear;
-   animation-iteration-count: 2;
-   animation-duration: 0.4s;
+   animation-iteration-count: 1;
+   animation-duration: 0.7s;
 
    -webkit-transform-style: preserve-3d;
    -moz-transform-style: preserve-3d;

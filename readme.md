@@ -2,17 +2,13 @@
 
 ## API
 
-```
-```
-
 ## TO-DO to complete MVP:
-
-- pop-up element for rolling dice
-
-- add simple explainer to site with redirect function
+- handle log in fail and registration fail on the front end
+- handle case when there is no data
 
 ## Improvements:
 - abstract out class to interact with mongo database
+- limit option input to 250 characters
 - unit tests of all relevant functions (try TDD methods)
 - abstract out to middleware for functions that check inputs
 - prevent injection attack + get rid of spaces when checking inputs

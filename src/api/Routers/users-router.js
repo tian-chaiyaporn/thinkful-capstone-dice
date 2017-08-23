@@ -1,4 +1,5 @@
 const express = require('express');
+const { BasicStrategy } = require('passport-http');
 const session = require('express-session');
 const jsonParser = require('body-parser').json();
 const urlParser = require('body-parser').urlencoded({     // to support URL-encoded bodies
@@ -15,6 +16,54 @@ const basicStrategy = require('../Middlewares/basic-auth-strategy')
 
 router.use(jsonParser);
 router.use(urlParser);
+//
+// passport.use('basic', new BasicStrategy((username, password, callback) => {
+//   let user;
+//
+//   console.log(`basic auth says username is ${username}, password is ${password}`)
+//
+//   User
+//     .findOne({username: username})
+//     .exec()
+//     .then(_user => {
+//       user = _user;
+//       if (!user) {
+//         return callback(null, false);
+//       }
+//       return user.validatePassword(password);
+//     })
+//     .then(isValid => {
+//       if (!isValid) {
+//         return callback(null, false);
+//       }
+//       else {
+//         console.log(user)
+//         return callback(null, user);
+//       }
+//     })
+//     .catch(err => callback(err));
+// }));
+//
+// router.use(passport.initialize());
+//
+// const secretString = Buffer('super-secret-string').toString('base64')
+// router.use(session({
+//   secret: secretString,
+//   resave: false,
+//   saveUninitialized: false
+// }));
+//
+// router.use(passport.session());
+//
+// passport.serializeUser(function(user, done) {
+//   done(null, user.id);
+// });
+//
+// passport.deserializeUser(function(id, done) {
+//   User.findById(id, function(err, user) {
+//     done(err, user);
+//   });
+// });
 
 // create new user
 router.post('/', (req, res) => {
@@ -74,7 +123,7 @@ router.post('/login',
   passport.authenticate('basic', {session: true}),
   (req, res) => {
     req.user.password = '';
-    res.status(201).json(req.user);
+    res.status(201).json(req.user)
 });
 
 // log user in
@@ -83,6 +132,7 @@ router.get('/logout', function(req, res) {
   req.session.destroy(function (err) {
     res.clearCookie('connect.sid');
     res.status(200);
+    console.log('session destroyed');
   });
 });
 
@@ -113,7 +163,7 @@ router.patch('/add-dice',
     debug('/add-dice is called')
     debug(req.session)
     debug(req.body)
-    if (!req.session.passport.user) {
+    if (!req.session.passport) {
       console.log("no req.session param, thus no log in");
       res.status(500).json({message: 'User not logged in'})
     } else {

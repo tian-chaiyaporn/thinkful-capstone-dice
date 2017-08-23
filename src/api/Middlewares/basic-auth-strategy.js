@@ -3,10 +3,6 @@ const { User } = require('../Models/User');
 
 module.exports = new BasicStrategy((username, password, callback) => {
   let user;
-
-  // callback(null, { id: 1, user: 'root' });
-  // return;
-
   User
     .findOne({username: username})
     .exec()

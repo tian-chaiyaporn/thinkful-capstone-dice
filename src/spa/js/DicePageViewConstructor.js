@@ -15,7 +15,7 @@ const diceView = function(ctx) {
   const asyncOperations = [
     DecisionListState.getDiceById(ctx.params.decisionId),
     ComponentState.getComponent('dice-page'),
-    ComponentState.getComponent('dice-face'),
+    ComponentState.getComponent('decision-card'),
     ComponentState.getComponent('dice-option')
   ]
 

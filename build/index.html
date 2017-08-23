@@ -27,7 +27,26 @@
         </div>
       </header>
       <main class="mdl-layout__content">
-        <div class="js-main-content page-content mdl-grid"><!-- Your content goes here --></div>
+
+        <section class="js-explainer explainer">
+
+          <h1>LET THE DICE DECIDE</h1>
+          <p>Have you ever spent 10 minutes deciding what to eat?</p>
+          <p>Maybe you're reading too many books, and don't know which one to continue with?</p>
+          <p>Or maybe you can't decide if you should go that Chinese place or the Italian one?</p>
+          <h3>Life is full of these trivial decisions. And we're here to help!</h3>
+          <h3>IT TAKES 3 STEPS:</h3>
+          <p>1. Choose a decision. Ideally, this is a daily decision you will have to make often</p>
+          <p>2. Create a new dice with a title and description of what the dice is for.</p>
+          <p>3. Add the dice faces (options). You can have as many as you like!</p>
+          <h4>Now you are ready to roll!</h4>
+          <p>ps. to edit the dice or save for easy access, please sign up for an account.</p>
+
+        </section>
+
+        <button class="js-see-explainer mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect see-explainer">SEE EXPLAINER</button>
+
+        <section class="js-main-content page-content mdl-grid"></section>
       </main>
     </div>
 
@@ -35,6 +54,16 @@
     <script src="https://cdn.rawgit.com/visionmedia/page.js/master/page.js"></script>
     <script>
       var userAuth = 'doNotSendAuthenticationCheck';
+
+      $('.js-see-explainer').click(function(e) {
+        if ( $('.js-explainer').is( ":hidden" ) ) {
+          $('.js-explainer').slideDown( "slow" );
+          $(e.currentTarget).text( "close explainer" );
+        } else {
+          $('.js-explainer').slideUp('slow');
+          $(e.currentTarget).text( "see explainer" );
+        }
+      })
     </script>
     <script src="static/assets/app.js"></script>
   </body>

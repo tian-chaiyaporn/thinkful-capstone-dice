@@ -1,19 +1,20 @@
 import replaceAll from './Utils/StringReplacer'
+import DecisionCardView from './DecisionCardView'
 
-const createDicePage = function(dice, pageLayout, diceComponent, optionComponent, editBtn) {
+const createDicePage = function(dice, pageLayout, decisionCard, optionComponent, editBtn) {
   console.log('createDicePage was called');
   const diceMap = {
     '@title': dice.decision,
     '@description': dice.description,
-    '@id': dice._id
+    '@id': dice._id,
+    'mdl-cell--4-col': 'mdl-cell--12-col'
   }
-  const diceFace = replaceAll(diceComponent, diceMap);
+
+  const card = replaceAll(decisionCard, diceMap);
   $('.js-main-content').append(pageLayout);
-  $('.js-dice-face').append(diceFace);
-  $('.js-roll').click((e) => {
-    e.stopImmediatePropagation();
-    dice.roll().then(result => alert(result.content));
-  });
+  $('.js-dice-face').append(card);
+
+  DecisionCardView.addRollFunctionality(dice);
 
   if(editBtn) {
     const editMap = {

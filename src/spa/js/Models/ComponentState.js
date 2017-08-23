@@ -9,7 +9,6 @@ const addComponentToState = (key, component) => {
 
 // return a COMPONENT by key from in-memory
 const getComponent = (key) => {
-  console.log('getComponent was called');
   return new Promise((res) => {
     if (COMPONENTS_OBJ[key]) {
       res(COMPONENTS_OBJ[key]);
