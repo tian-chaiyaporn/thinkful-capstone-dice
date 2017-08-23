@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./src/api/server.js",
     "seed-data": "mongoimport --db diceApp --collection decisions --drop --file ~/Thinkful/Server-side/dice-capstone/src/api/seed-data-dice.json",
-    "seed-data-to-cloud": "mongoimport --db diceApp --collection decisions --drop --file ~/Thinkful/Server-side/dice-capstone/src/api/seed-data-dice.json --host ds153752.mlab.com --port 53752  -u tian_chaiyaporn -p chaichinchino1718",
+    "seed-data-to-cloud": "mongoimport --db dice-app --collection decisions --drop --file ~/Thinkful/Server-side/dice-capstone/src/api/seed-data-dice.json --host ds153752.mlab.com --port 53752  -u chaiyaporn -p chaichinchino1718",
     "start-dev": "nodemon ./src/api/server.js localhost 8080",
     "build": "gulp",
     "build:browserify": "browserify mid-build/js -t babelify --outfile build/assets/app.js",
