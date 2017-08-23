@@ -23,7 +23,7 @@ const viewSignInForm = function(signInFormComponent) {
     }
 
     if (!username || !password) {
-      $(e.currentTarget).append('<div class="js-alert-sign-in">please input both username and password</div>');
+      $(e.currentTarget).append('<div class="js-alert-sign-in" style="color: red;">please input both username and password</div>');
       return;
     }
 
@@ -44,7 +44,10 @@ const viewSignInForm = function(signInFormComponent) {
       .catch((err) => {
         console.log('fail');
         console.log(err);
-        $(e.currentTarget).append('<div>please try again</div>')
+        if ($('.js-alert-sign-in')) {
+          $('.js-alert-sign-in').text('please try again')
+        }
+        $(e.currentTarget).append('<div class="js-alert-sign-in" style="color: red">please try again</div>')
       })
   })
 }

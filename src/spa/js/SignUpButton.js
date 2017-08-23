@@ -23,7 +23,7 @@ const viewSignUpForm = function(signUpFormComponent) {
     }
 
     if (!username || !password) {
-      $(e.currentTarget).append('<div class="js-alert-sign-up">please input both username and password</div>');
+      $(e.currentTarget).append('<div class="js-alert-sign-up" style="color: red;">please input both username and password</div>');
       return;
     }
 
@@ -37,16 +37,16 @@ const viewSignUpForm = function(signUpFormComponent) {
         $('.black-out').remove();
       })
       .then(() => {
-        // $('.js-sign-in-out').text('SIGN OUT');
-        // $('.js-sign-up').hide();
-        // NavigationViewConstructor.addUserPageToNav();
         page('/');
         location.reload(true);
       })
       .catch((err) => {
         console.log('fail');
         console.log(err);
-        $(e.currentTarget).append('<div>please try again</div>')
+        if ($('.js-alert-sign-up')) {
+          $('.js-alert-sign-up').text('please try again')
+        }
+        $(e.currentTarget).append('<div class="js-alert-sign-up" style="color: red;">please try a different username</div>')
       })
   })
 }

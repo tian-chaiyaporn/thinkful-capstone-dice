@@ -49,7 +49,9 @@ export default class User {
           res(User.signIn(username, password));
           return;
         })
-        .fail(err => rej(`cannot create user - Error: ${err}`));
+        .fail(err => {
+          rej(`cannot create user - Error: ${err}`)
+        });
       })
   }
 
@@ -57,18 +59,6 @@ export default class User {
     return new Promise((res, rej) => {
       const target = `/user/login`;
       const urlString = `${target}`;
-      // console.log(`singIn with ${username}`)
-      // const formData = new FormData();
-      // formData.append('username', username);
-      // formData.append('password', password);
-      // console.log(formData);
-
-      // _createFormData(username, password)
-      //   .then((formData) => {
-      //     // return _sendSignInAjax(formData)
-      //     res(_sendSignInAjax(formData, urlString));
-      //   })
-      //
       const dataString = 'username='+ username + '&password=' + password;
       console.log(dataString)
       console.log($("#sign-in-form").serialize())
@@ -90,7 +80,9 @@ export default class User {
           }))
           return;
         })
-        .fail(err => rej(`cannot sign in - Error: ${err}`));
+        .fail(err => {
+          rej(`cannot sign in - Error: ${err}`)
+        });
     })
   }
 
@@ -129,79 +121,4 @@ export default class User {
         .fail(err => rej(`user is not authenticated - Error: ${err}`));
       })
   }
-
-  static save (dice) {}
-
-  static delete (dice) {}
-
-  static find (params) {}
-
 }
-
-const  _createFormData = (username, password) => {
-    return new Promise((res, rej) => {
-      const target = `/user/login`;
-      const urlString = `${target}`;
-      console.log(`singIn with ${username}`)
-      var f = document.getElementById('#sign-in-form')
-      var formData = new FormData(f);
-      // formData.append('username', username);
-      // formData.append('password', password);
-      console.log(formData);
-
-      Promise.all([
-        _appendUsernameToFormData(formData, username),
-        _appendPasswordToFormData(formData, password)
-      ]).then((payload) => {
-        console.log(payload)
-      })
-
-      // _appendUsernameToFormData(formData, username)
-      //   .then((form) => {
-      //     console.log(form)
-      //     return _appendPasswordToFormData(form, password)
-      //   })
-      //   .then((form) => {
-      //     console.log(form)
-      //     res(form)
-      //   })
-    })
-  }
-
-const  _appendUsernameToFormData = (form, username) => {
-    return new Promise((res, rej) => {
-      console.log(form)
-      console.log(username)
-      console.log(form.append('username', username))
-      res(form)
-    })
-  }
-
-const  _appendPasswordToFormData = (form, password) => {
-    return new Promise((res, rej) => {
-      res(form.set('password', password))
-    })
-  }
-
-const  _sendSignInAjax = (formData, urlString) => {
-    return new Promise((res, rej) => {
-      $.ajax({
-          url: urlString,
-          method: 'POST',
-          data: formData,
-          contentType: false,
-          processData: false
-        })
-        .done((payload) => {
-          console.log('signin successful')
-          console.log(payload)
-          res(new User({
-            _id: payload._id,
-            username: payload.username,
-            decision_id: payload.decision_id
-          }))
-          return;
-        })
-        .fail(err => rej(`cannot sign in - Error: ${err}`));
-    })
-  }

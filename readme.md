@@ -3,8 +3,6 @@
 ## API
 
 ## TO-DO to complete MVP:
-- handle log in fail and registration fail on the front end
-- handle case when there is no data
 
 ## Improvements:
 - abstract out class to interact with mongo database

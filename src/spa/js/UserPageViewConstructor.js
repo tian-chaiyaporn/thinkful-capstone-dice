@@ -20,7 +20,7 @@ const viewUserPage = function(ctx) {
     .then((payload) => {
       if (payload[0].length === 0) {
         console.log('there is no data');
-        throw new Error('There is no data');
+        alert(`You havn't made any dice yet`)
       }
       else {
         UtilFunc.clearHtml('js-main-content');
