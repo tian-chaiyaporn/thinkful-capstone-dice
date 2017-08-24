@@ -1,8 +1,9 @@
 # Dice
 
-## API
 
-## TO-DO to complete MVP:
+## NOTE:
+Please note that this project utilizes the Material Design lite css library by Google. However, there are some known bugs that may cause problems for cross-browser compatability:
+https://github.com/google/material-design-lite#limited-support
 
 ## Improvements:
 - abstract out class to interact with mongo database
